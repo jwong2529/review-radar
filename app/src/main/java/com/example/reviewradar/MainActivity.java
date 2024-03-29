@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Show text information for button 1
-                showToast("Button 1 clicked!");
+                showToast("Button 1 clicked!!");
             }
         });
 
