@@ -7,10 +7,10 @@
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
         android:layout_centerInParent="true"
-         /> <!-- Replace "image" with your image file in the drawable folder -->
+        android:src="@drawable/sample_image" />
 
     <Button
         android:id="@+id/button1"
@@ -20,7 +20,7 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
-        android:text="Button 1" />
+        android:text="Post Review" />
 
     <Button
         android:id="@+id/button2"
@@ -30,6 +30,6 @@
         android:layout_marginTop="20dp"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
-        android:text="Button 2" />
+        android:text="Save Draft" />
 
 </RelativeLayout>

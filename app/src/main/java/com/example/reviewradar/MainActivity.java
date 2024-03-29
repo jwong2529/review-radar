@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Show text information for button 1
-                showToast("Button 1 clicked!!");
+                showToast("Review posted!");
             }
         });
 
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Show text information for button 2
-                showToast("Button 2 clicked!");
+                showToast("Draft saved!");
             }
         });
     }
