@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- item_restaurant.xml -->
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="4dp"
+    android:layout_margin="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:id="@+id/restaurant_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Restaurant Name"
+            android:textSize="18sp"
+            android:textStyle="bold"/>
+
+        <ImageView
+            android:id="@+id/restaurant_image"
+            android:layout_width="match_parent"
+            android:layout_height="242dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp"
+            app:srcCompat="@drawable/sample_image" />
+
+        <TextView
+            android:id="@+id/restaurant_cuisine_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cuisine Type"
+            android:textSize="16sp"/>
+
+        <RatingBar
+            android:id="@+id/ratingBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="?android:attr/ratingBarStyleIndicator"
+            android:progressTint="#FFCC01"
+            android:numStars="5"
+            android:rating="3"
+            android:stepSize="0.5"/>
+
+        <!-- Add ImageView for image, and other views as needed -->
+    </LinearLayout>
+</androidx.cardview.widget.CardView>
