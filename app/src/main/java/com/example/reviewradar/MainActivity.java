@@ -10,6 +10,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -25,26 +28,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//
-//        Button button1 = findViewById(R.id.button1);
-//        Button button2 = findViewById(R.id.button2);
-//
-//        button1.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Show text information for button 1
-//                showToast("Review posted!");
-//            }
-//        });
-//
-//        button2.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                // Show text information for button 2
-//                showToast("Draft saved!");
-//            }
-//        });
+
         setContentView(R.layout.home_page);
 
         //Parse csv file to obtain restaurant data
@@ -60,6 +44,12 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new RestaurantAdapter(restaurantMap);
         recyclerView.setAdapter(adapter);
+
+        // Write a message to the database
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("McDonalds");
+
+        myRef.setValue("This is bad");
     }
 
     private void showToast(String message) {
