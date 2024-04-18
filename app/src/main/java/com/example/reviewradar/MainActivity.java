@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
 
         //Parse csv file to obtain restaurant data
         try {
-            InputStream inputStream = getAssets().open("restaurantsERHP.csv");
+            InputStream inputStream = getAssets().open("restaurantsERHP.txt");
             restaurantMap = parseCSV(inputStream);
             inputStream.close();
         } catch (IOException e) {
@@ -60,14 +60,22 @@ public class MainActivity extends AppCompatActivity {
         Map<String, String> restaurantMap = new HashMap<>();
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+
+            //skips the first line (just category labels)
+            reader.readLine();
+
             String line;
             while ((line = reader.readLine()) != null) {
-                String[] parts = line.split(",");
+                String[] parts = line.split("\t");
                 //checking for two categories for now
-                if (parts.length == 2) {
+                if (parts.length == 3) {
                     String restaurantName = parts[0];
                     String cuisineType = parts[1];
+                    String address = parts[2];
                     restaurantMap.put(restaurantName, cuisineType);
+
+                    //create a new Restaurant object
+                    Restaurant restaurant = new Restaurant(restaurantName, cuisineType, address);
                 }
             }
             reader.close();
