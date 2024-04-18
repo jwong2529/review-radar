@@ -45,11 +45,6 @@ public class MainActivity extends AppCompatActivity {
         adapter = new RestaurantAdapter(restaurantMap);
         recyclerView.setAdapter(adapter);
 
-        // Write a message to the database
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("McDonalds");
-
-        myRef.setValue("This is bad");
     }
 
     private void showToast(String message) {
@@ -76,6 +71,11 @@ public class MainActivity extends AppCompatActivity {
 
                     //create a new Restaurant object
                     Restaurant restaurant = new Restaurant(restaurantName, cuisineType, address);
+
+                    FirebaseDatabase database = FirebaseDatabase.getInstance();
+                    DatabaseReference myRef = database.getReference(restaurantName);
+
+                    myRef.setValue(restaurant);
                 }
             }
             reader.close();

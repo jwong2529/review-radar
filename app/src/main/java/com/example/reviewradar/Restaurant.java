@@ -10,7 +10,7 @@ public class Restaurant {
     private List<RestaurantReview> reviews;
     private List<String> imageUrls;
 
-    public Restaurant(String name, String cusineType, String address) {
+    public Restaurant(String name, String cuisineType, String address) {
         this.name = name;
         this.cuisineType = cuisineType;
         this.address = address;
