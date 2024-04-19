@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -24,5 +25,13 @@ public class ViewRestaurantPage extends AppCompatActivity {
             }
         });
 
+        Button postReviewButton = findViewById(R.id.postReviewButton);
+        postReviewButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), PostAReview.class);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 }
