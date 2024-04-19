@@ -1,17 +1,13 @@
 package com.example.reviewradar;
 
-import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.reviewradar.R;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +41,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ViewRestaurantPage.class);
+                Intent intent = new Intent(v.getContext(), PostAReview.class);
                 v.getContext().startActivity(intent);
             }
         });
