@@ -1,9 +1,13 @@
 package com.example.reviewradar;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -17,9 +21,12 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     private Map<String, String> restaurantMap;
     private List<String> restaurantNames;
 
+//    private Context context;
+
     public RestaurantAdapter(Map<String, String> restaurantMap) {
         this.restaurantMap = restaurantMap;
         this.restaurantNames = new ArrayList<>(restaurantMap.keySet());
+//        this.context = context;
     }
 
     @NonNull
@@ -34,6 +41,15 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         String restaurantName = restaurantNames.get(position);
         String cuisineType = restaurantMap.get(restaurantName);
         holder.bind(restaurantName, cuisineType);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ViewRestaurantPage.class);
+                v.getContext().startActivity(intent);
+            }
+        });
+
     }
 
     @Override
