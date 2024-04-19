@@ -8,10 +8,10 @@
             <InsightsFilterSettings>
               <option name="connection">
                 <ConnectionSetting>
-                  <option name="appId" value="PLACEHOLDER" />
-                  <option name="mobileSdkAppId" value="" />
-                  <option name="projectId" value="" />
-                  <option name="projectNumber" value="" />
+                  <option name="appId" value="com.example.reviewradar" />
+                  <option name="mobileSdkAppId" value="1:214562797888:android:258a084b33e2f08998e2a5" />
+                  <option name="projectId" value="reviewradar-7bebf" />
+                  <option name="projectNumber" value="214562797888" />
                 </ConnectionSetting>
               </option>
               <option name="signal" value="SIGNAL_UNSPECIFIED" />

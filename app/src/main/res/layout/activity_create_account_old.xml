@@ -125,8 +125,8 @@
             <com.google.android.material.button.MaterialButton
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:id="@+id/loginbtn"
-                android:text="Login"
+                android:id="@+id/createButton"
+                android:text="Create Account"
                 app:cornerRadius="32dp"/>
 
             <View

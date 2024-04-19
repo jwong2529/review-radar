@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -45,11 +46,27 @@ public class MainActivity extends AppCompatActivity {
         adapter = new RestaurantAdapter(restaurantMap);
         recyclerView.setAdapter(adapter);
 
+        Button userButton = findViewById(R.id.userButton);
+        userButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("MainActivity", "User button clicked");
+
+                Intent intent = new Intent(v.getContext(), CreateAccount.class);
+
+                v.getContext().startActivity(intent);
+            }
+        });
+
     }
 
     private void showToast(String message) {
         Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
     }
+
+
+
+
 
     private Map<String, String> parseCSV(InputStream inputStream) {
         Map<String, String> restaurantMap = new HashMap<>();
