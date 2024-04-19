@@ -16,6 +16,9 @@
             android:name=".PostAReview"
             android:exported="false" />
         <activity
+            android:name=".ViewRestaurantPage"
+            android:exported="false" />
+        <activity
             android:name=".CreateAccount"
             android:exported="false" />
         <activity
