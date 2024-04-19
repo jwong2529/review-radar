@@ -38,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
     private RestaurantAdapter adapter;
     private Map<String, String> restaurantMap;
 
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
 
@@ -81,17 +80,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new RestaurantAdapter(restaurantMap);
         recyclerView.setAdapter(adapter);
 
-        Button userButton = findViewById(R.id.userButton);
-        userButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Log.d("MainActivity", "User button clicked");
 
-                Intent intent = new Intent(v.getContext(), CreateAccount.class);
-
-                v.getContext().startActivity(intent);
-            }
-        });
 
     }
 
