@@ -18,7 +18,7 @@ public class PostAReview extends AppCompatActivity {
         cancelReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ViewRestaurantPage.class);
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
                 v.getContext().startActivity(intent);
             }
         });

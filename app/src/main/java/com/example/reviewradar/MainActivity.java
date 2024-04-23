@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RestaurantAdapter adapter;
-    private Map<String, String> restaurantMap;
+    private Map<String, Restaurant> restaurantMap;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -80,8 +80,6 @@ public class MainActivity extends AppCompatActivity {
         adapter = new RestaurantAdapter(restaurantMap);
         recyclerView.setAdapter(adapter);
 
-
-
     }
 
     private void showToast(String message) {
@@ -92,8 +90,9 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    private Map<String, String> parseCSV(InputStream inputStream) {
-        Map<String, String> restaurantMap = new HashMap<>();
+    private Map<String, Restaurant> parseCSV(InputStream inputStream) {
+//        Map<String, String> restaurantMap = new HashMap<>();
+        Map<String, Restaurant> restaurantMap = new HashMap<>();
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
@@ -108,10 +107,11 @@ public class MainActivity extends AppCompatActivity {
                     String restaurantName = parts[0];
                     String cuisineType = parts[1];
                     String address = parts[2];
-                    restaurantMap.put(restaurantName, cuisineType);
+//                    restaurantMap.put(restaurantName, cuisineType);
 
                     //create a new Restaurant object
                     Restaurant restaurant = new Restaurant(restaurantName, cuisineType, address);
+                    restaurantMap.put(restaurantName, restaurant);
 
                     FirebaseDatabase database = FirebaseDatabase.getInstance();
                     DatabaseReference myRef = database.getReference(restaurantName);

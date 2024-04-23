@@ -65,4 +65,5 @@ public class Restaurant {
     public void addImageUrl(String imageUrl) {
         imageUrls.add(imageUrl);
     }
+
 }
