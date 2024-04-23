@@ -102,12 +102,11 @@ public class MainActivity extends AppCompatActivity {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split("\t");
-                //checking for two categories for now
+                //checking for three categories for now
                 if (parts.length == 3) {
                     String restaurantName = parts[0];
                     String cuisineType = parts[1];
                     String address = parts[2];
-//                    restaurantMap.put(restaurantName, cuisineType);
 
                     //create a new Restaurant object
                     Restaurant restaurant = new Restaurant(restaurantName, cuisineType, address);

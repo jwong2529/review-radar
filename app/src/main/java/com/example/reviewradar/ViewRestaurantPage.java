@@ -26,7 +26,6 @@ public class ViewRestaurantPage extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.restaurant_page);
 
-        //testing!
         Intent intent = getIntent();
         if (intent != null) {
             restaurantName = intent.getStringExtra("restaurantName");
@@ -47,6 +46,7 @@ public class ViewRestaurantPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), PostAReview.class);
+                intent.putExtra("restaurantName", restaurantName);
                 v.getContext().startActivity(intent);
             }
         });
