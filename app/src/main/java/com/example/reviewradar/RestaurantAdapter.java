@@ -60,7 +60,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
 
         public RestaurantViewHolder(@NonNull View itemView) {
             super(itemView);
-            restaurantNameTextView = itemView.findViewById(R.id.restaurant_title);
+            restaurantNameTextView = itemView.findViewById(R.id.reviewPostUsername);
             cuisineTypeTextView = itemView.findViewById(R.id.restaurant_cuisine_type);
         }
 

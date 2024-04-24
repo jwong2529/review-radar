@@ -15,7 +15,7 @@
         android:padding="16dp">
 
         <TextView
-            android:id="@+id/restaurant_title"
+            android:id="@+id/reviewPostUsername"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Restaurant Name"
@@ -38,7 +38,7 @@
             android:textSize="16sp"/>
 
         <RatingBar
-            android:id="@+id/ratingBar"
+            android:id="@+id/reviewPostRating"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="?android:attr/ratingBarStyleIndicator"

@@ -13,20 +13,13 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.Firebase;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
-import org.w3c.dom.Text;
 
 public class PostAReview extends AppCompatActivity {
 
     String restaurantName;
-//    Restaurant restaurant;
-//    DatabaseReference restaurantRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,8 +50,6 @@ public class PostAReview extends AppCompatActivity {
         postReviewPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                checkReviewValidity(restaurantName);
-//                checkRestaurantValidity();
                 handleReview();
             }
         });

@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RestaurantAdapter adapter;
-//    private Map<String, Restaurant> restaurantMap;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -69,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
         //Parse csv file to obtain restaurant data
         try {
             InputStream inputStream = getAssets().open("restaurantsERHP.txt");
-//            restaurantMap = parseCSV(inputStream);
             parseCSV(inputStream);
             inputStream.close();
         } catch (IOException e) {
@@ -78,20 +76,8 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-//        adapter = new RestaurantAdapter(restaurantMap);
         adapter = new RestaurantAdapter(RestaurantData.restaurantMap);
         recyclerView.setAdapter(adapter);
-
-
-        //TESTING!
-//        RestaurantReview review = new RestaurantReview("Janice", 3, "Good");
-//        Restaurant restaurant = restaurantMap.get("The Oinkster");
-//        restaurant.addReview(review);
-//
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference myRef = database.getReference("The Oinkster");
-//
-//        myRef.setValue(restaurant);
 
     }
 
