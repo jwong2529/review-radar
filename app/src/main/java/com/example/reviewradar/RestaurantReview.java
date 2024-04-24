@@ -6,6 +6,10 @@ public class RestaurantReview {
     private String comment;
     private String imageUrl;
 
+    public RestaurantReview() {
+
+    }
+
     public RestaurantReview(String reviewerName, float rating, String comment) {
         this.reviewerName = reviewerName;
         this.rating = rating;

@@ -60,12 +60,15 @@ public class PostAReview extends AppCompatActivity {
         EditText restaurantNameET = findViewById(R.id.postReviewResTitle);
         String restaurantNameText = restaurantNameET.getText().toString();
 
-        Restaurant restaurant = RestaurantData.restaurantMap.get(restaurantNameText);
+//        Restaurant restaurant = RestaurantData.restaurantMap.get(restaurantNameText);
+//
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference restaurantRef = database.getReference(restaurantNameText);
 
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference restaurantRef = database.getReference(restaurantNameText);
+        //testing
+        AccessData resData = new AccessData(restaurantNameText);
 
-        if (restaurant != null) {
+        if (RestaurantData.restaurantMap.containsKey(restaurantNameText)) {
             if (checkDescription()) {
                 RatingBar ratingBar = findViewById(R.id.postReviewRatingBar);
                 EditText reviewET = findViewById(R.id.postReviewDescription);
@@ -73,9 +76,12 @@ public class PostAReview extends AppCompatActivity {
                 float rating = ratingBar.getRating();
                 String reviewDescription = reviewET.getText().toString();
                 RestaurantReview review = new RestaurantReview("Test name", rating, reviewDescription);
+
+                Restaurant restaurant = resData.retrieveRestaurant();
                 restaurant.addReview(review);
 
-                restaurantRef.setValue(restaurant);
+//                restaurantRef.setValue(restaurant);
+                resData.updateRestaurant(restaurantNameText, restaurant);
 
                 showToast("Review posted!");
 
@@ -93,7 +99,7 @@ public class PostAReview extends AppCompatActivity {
 
     private boolean checkDescription() {
         TextView reviewTV = findViewById(R.id.postReviewDescription);
-        String reviewText = reviewTV.toString();
+        String reviewText = reviewTV.getText().toString();
         if (reviewText.length() > 0 && reviewText.length() <= 250) {
             return true;
         }

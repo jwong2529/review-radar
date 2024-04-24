@@ -2,6 +2,8 @@ package com.example.reviewradar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +15,9 @@ import android.widget.TextView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ViewRestaurantPage extends AppCompatActivity {
+
+    private RecyclerView recyclerView;
+    private ReviewAdapter adapter;
 
     String restaurantName;
 
@@ -26,6 +31,13 @@ public class ViewRestaurantPage extends AppCompatActivity {
             restaurantName = intent.getStringExtra("restaurantName");
             updatePageFields();
         }
+
+        recyclerView = findViewById(R.id.recycler_view_2);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        AccessData resData = new AccessData(restaurantName);
+        Restaurant restaurant = resData.retrieveRestaurant();
+        adapter = new ReviewAdapter(restaurant.getReviews());
+        recyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -51,7 +63,11 @@ public class ViewRestaurantPage extends AppCompatActivity {
 //        FirebaseDatabase database = FirebaseDatabase.getInstance();
 //        DatabaseReference restaurantRef = database.getReference(restaurantName);
 
-        Restaurant restaurant = RestaurantData.restaurantMap.get(restaurantName);
+//        Restaurant restaurant = RestaurantData.restaurantMap.get(restaurantName);
+
+        //testing
+        AccessData checkData = new AccessData(restaurantName);
+        Restaurant restaurant = checkData.retrieveRestaurant();
 
         TextView restaurantNameTV = findViewById(R.id.restaurantPageTitle);
         TextView cuisineTypeTV = findViewById(R.id.restaurantPageCuisineType);

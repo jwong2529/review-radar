@@ -6,11 +6,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
@@ -25,6 +28,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.ValueEventListener;
+
 import android.view.MenuItem;
 
 
@@ -36,6 +41,8 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RestaurantAdapter adapter;
+
+    private Map<String, Restaurant> restaurantMapData;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -65,7 +72,18 @@ public class MainActivity extends AppCompatActivity {
         BottomNavigationView navigation = findViewById(R.id.bottomNavigationView);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
-        //Parse csv file to obtain restaurant data
+
+
+        AccessData resData = new AccessData(null);
+        resData.retrieveAllRestaurants(new AccessData.RestaurantDataCallback() {
+            @Override
+            public void onDataLoaded(Map<String, Restaurant> restaurantMap) {
+                restaurantMapData = restaurantMap;
+                RestaurantData.restaurantMap = restaurantMapData;
+            }
+        });
+
+        //Parse csv file to obtain new restaurant data
         try {
             InputStream inputStream = getAssets().open("restaurantsERHP.txt");
             parseCSV(inputStream);
@@ -74,8 +92,24 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //testing
+//        for (Map.Entry<String, Restaurant> entry : restaurantMap.entrySet()) {
+//            Log.i("XXX", "I'm in here");
+//            String restaurantName = entry.getKey();
+//            Restaurant restaurant = entry.getValue();
+//            Log.d("HashMapContents", "Restaurant Name: " + restaurantName + ", Restaurant: " + restaurant);
+//        }
+
+
+//        recyclerView = findViewById(R.id.recycler_view);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+////        adapter = new RestaurantAdapter(RestaurantData.restaurantMap);
+//        adapter = new RestaurantAdapter(restaurantMap);
+//
+//        recyclerView.setAdapter(adapter);
+
         recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
         adapter = new RestaurantAdapter(RestaurantData.restaurantMap);
         recyclerView.setAdapter(adapter);
 
@@ -95,30 +129,26 @@ public class MainActivity extends AppCompatActivity {
 
             String line;
             while((line = reader.readLine()) != null) {
+
                 String[] parts = line.split("\t");
-                //checking for three categories for now
-                if (parts.length == 3) {
-                    String restaurantName = parts[0];
-                    String cuisineType = parts[1];
-                    String address = parts[2];
+                String restaurantName = parts[0];
+                String cuisineType = parts[1];
+                String address = parts[2];
 
-                    //Check if the restaurant already exists in map
-                    if (!RestaurantData.restaurantMap.containsKey(restaurantName)) {
-                        //create a new Restaurant object
-                        Restaurant restaurant = new Restaurant(restaurantName, cuisineType, address);
-                        RestaurantData.restaurantMap.put(restaurantName, restaurant);
-
-                        FirebaseDatabase database = FirebaseDatabase.getInstance();
-                        DatabaseReference myRef = database.getReference(restaurantName);
-
-                        myRef.setValue(restaurant);
-                    }
+                //Check if restaurant already exists in database, add if not
+                AccessData resData = new AccessData(restaurantName);
+                if (!RestaurantData.restaurantMap.containsKey(restaurantName)) {
+                    //Create a new Restaurant object
+                    Restaurant restaurant = new Restaurant(restaurantName, cuisineType, address);
+                    resData.updateRestaurant(restaurantName, restaurant);
                 }
+
             }
         }
         catch (IOException e) {
             e.printStackTrace();
         }
     }
+
 
 }

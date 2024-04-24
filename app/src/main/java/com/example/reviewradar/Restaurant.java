@@ -1,5 +1,7 @@
 package com.example.reviewradar;
 
+import com.google.firebase.database.IgnoreExtraProperties;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,9 @@ public class Restaurant {
     private List<RestaurantReview> reviews;
     private List<String> imageUrls;
 
+    public Restaurant() {
+
+    }
     public Restaurant(String name, String cuisineType, String address) {
         this.name = name;
         this.cuisineType = cuisineType;
