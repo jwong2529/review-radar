@@ -53,30 +53,22 @@ public class ViewRestaurantPage extends AppCompatActivity {
     }
 
     private void updatePageFields() {
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference restaurantRef = database.getReference(restaurantName);
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference restaurantRef = database.getReference(restaurantName);
 
-        restaurantRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    String cuisineType = dataSnapshot.child("cuisineType").getValue(String.class);
-                    String address = dataSnapshot.child("address").getValue(String.class);
+        Restaurant restaurant = RestaurantData.restaurantMap.get(restaurantName);
 
-                    TextView restaurantNameTV = findViewById(R.id.restaurantPageTitle);
-                    TextView cuisineTypeTV = findViewById(R.id.restaurantPageCuisineType);
-                    TextView addressTV = findViewById(R.id.restaurantPageAddress);
+        TextView restaurantNameTV = findViewById(R.id.restaurantPageTitle);
+        TextView cuisineTypeTV = findViewById(R.id.restaurantPageCuisineType);
+        TextView addressTV = findViewById(R.id.restaurantPageAddress);
 
-                    restaurantNameTV.setText(restaurantName);
-                    cuisineTypeTV.setText(cuisineType);
-                    addressTV.setText(address);
-                }
-            }
+        String cuisineType = restaurant.getCuisineType();
+        String address = restaurant.getAddress();
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
 
-        });
+        restaurantNameTV.setText(restaurantName);
+        cuisineTypeTV.setText(cuisineType);
+        addressTV.setText(address);
+
     }
 }

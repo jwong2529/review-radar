@@ -36,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RestaurantAdapter adapter;
-    private Map<String, Restaurant> restaurantMap;
+//    private Map<String, Restaurant> restaurantMap;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -69,7 +69,8 @@ public class MainActivity extends AppCompatActivity {
         //Parse csv file to obtain restaurant data
         try {
             InputStream inputStream = getAssets().open("restaurantsERHP.txt");
-            restaurantMap = parseCSV(inputStream);
+//            restaurantMap = parseCSV(inputStream);
+            parseCSV(inputStream);
             inputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
@@ -77,8 +78,20 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new RestaurantAdapter(restaurantMap);
+//        adapter = new RestaurantAdapter(restaurantMap);
+        adapter = new RestaurantAdapter(RestaurantData.restaurantMap);
         recyclerView.setAdapter(adapter);
+
+
+        //TESTING!
+//        RestaurantReview review = new RestaurantReview("Janice", 3, "Good");
+//        Restaurant restaurant = restaurantMap.get("The Oinkster");
+//        restaurant.addReview(review);
+//
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference myRef = database.getReference("The Oinkster");
+//
+//        myRef.setValue(restaurant);
 
     }
 
@@ -87,12 +100,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
-
-
-    private Map<String, Restaurant> parseCSV(InputStream inputStream) {
-//        Map<String, String> restaurantMap = new HashMap<>();
-        Map<String, Restaurant> restaurantMap = new HashMap<>();
+    private void parseCSV(InputStream inputStream) {
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
@@ -100,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
             reader.readLine();
 
             String line;
-            while ((line = reader.readLine()) != null) {
+            while((line = reader.readLine()) != null) {
                 String[] parts = line.split("\t");
                 //checking for three categories for now
                 if (parts.length == 3) {
@@ -108,22 +116,23 @@ public class MainActivity extends AppCompatActivity {
                     String cuisineType = parts[1];
                     String address = parts[2];
 
-                    //create a new Restaurant object
-                    Restaurant restaurant = new Restaurant(restaurantName, cuisineType, address);
-                    restaurantMap.put(restaurantName, restaurant);
+                    //Check if the restaurant already exists in map
+                    if (!RestaurantData.restaurantMap.containsKey(restaurantName)) {
+                        //create a new Restaurant object
+                        Restaurant restaurant = new Restaurant(restaurantName, cuisineType, address);
+                        RestaurantData.restaurantMap.put(restaurantName, restaurant);
 
-                    FirebaseDatabase database = FirebaseDatabase.getInstance();
-                    DatabaseReference myRef = database.getReference(restaurantName);
+                        FirebaseDatabase database = FirebaseDatabase.getInstance();
+                        DatabaseReference myRef = database.getReference(restaurantName);
 
-                    myRef.setValue(restaurant);
+                        myRef.setValue(restaurant);
+                    }
                 }
             }
-            reader.close();
         }
-        catch(IOException e) {
+        catch (IOException e) {
             e.printStackTrace();
         }
-        return restaurantMap;
     }
 
 }

@@ -1,14 +1,32 @@
 package com.example.reviewradar;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.google.firebase.Firebase;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import org.w3c.dom.Text;
 
 public class PostAReview extends AppCompatActivity {
+
+    String restaurantName;
+//    Restaurant restaurant;
+//    DatabaseReference restaurantRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -16,14 +34,15 @@ public class PostAReview extends AppCompatActivity {
         setContentView(R.layout.activity_post_areview);
 
         //Retrieve restaurant name extra from Intent
-        String restaurantName = getIntent().getStringExtra("restaurantName");
+        restaurantName = getIntent().getStringExtra("restaurantName");
         EditText restaurantNameEditText = findViewById(R.id.postReviewResTitle);
 
-        //Autofll restaurant name field if not null (basically when user presses post
+        //Autofill restaurant name field if not null (basically when user presses post
         // review button directly from restaurant page instead of nav bar)
         if (restaurantName != null) {
             restaurantNameEditText.setText(restaurantName);
         }
+
 
         Button cancelReviewButton = findViewById(R.id.cancalReviewButton);
         cancelReviewButton.setOnClickListener(new View.OnClickListener() {
@@ -34,5 +53,64 @@ public class PostAReview extends AppCompatActivity {
             }
         });
 
+        Button postReviewPageButton = findViewById(R.id.postReviewPageButton);
+        postReviewPageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                checkReviewValidity(restaurantName);
+//                checkRestaurantValidity();
+                handleReview();
+            }
+        });
+
+    }
+
+    private void handleReview() {
+        EditText restaurantNameET = findViewById(R.id.postReviewResTitle);
+        String restaurantNameText = restaurantNameET.getText().toString();
+
+        Restaurant restaurant = RestaurantData.restaurantMap.get(restaurantNameText);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference restaurantRef = database.getReference(restaurantNameText);
+
+        if (restaurant != null) {
+            if (checkDescription()) {
+                RatingBar ratingBar = findViewById(R.id.postReviewRatingBar);
+                EditText reviewET = findViewById(R.id.postReviewDescription);
+
+                float rating = ratingBar.getRating();
+                String reviewDescription = reviewET.getText().toString();
+                RestaurantReview review = new RestaurantReview("Test name", rating, reviewDescription);
+                restaurant.addReview(review);
+
+                restaurantRef.setValue(restaurant);
+
+                showToast("Review posted!");
+
+                Intent intent = new Intent(PostAReview.this, ViewRestaurantPage.class);
+                intent.putExtra("restaurantName", restaurantName);
+                startActivity(intent);
+            } else {
+                showToast("Review must be between 0 and 250 characters.");
+            }
+        } else {
+            showToast("Restaurant not found. Please enter a valid restaurant name.");
+        }
+    }
+
+
+    private boolean checkDescription() {
+        TextView reviewTV = findViewById(R.id.postReviewDescription);
+        String reviewText = reviewTV.toString();
+        if (reviewText.length() > 0 && reviewText.length() <= 250) {
+            return true;
+        }
+        return false;
+    }
+
+
+    private void showToast(String message) {
+        Toast.makeText(PostAReview.this, message, Toast.LENGTH_SHORT).show();
     }
 }

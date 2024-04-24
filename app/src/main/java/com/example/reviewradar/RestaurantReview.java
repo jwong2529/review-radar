@@ -2,11 +2,11 @@ package com.example.reviewradar;
 
 public class RestaurantReview {
     private String reviewerName;
-    private int rating;
+    private float rating;
     private String comment;
     private String imageUrl;
 
-    public RestaurantReview(String reviewerName, int rating, String comment) {
+    public RestaurantReview(String reviewerName, float rating, String comment) {
         this.reviewerName = reviewerName;
         this.rating = rating;
         this.comment = comment;
@@ -21,11 +21,11 @@ public class RestaurantReview {
         this.reviewerName = reviewerName;
     }
 
-    public int getRating() {
+    public float getRating() {
         return rating;
     }
 
-    public void setRating(int rating) {
+    public void setRating(float rating) {
         this.rating = rating;
     }
 
