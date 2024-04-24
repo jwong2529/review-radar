@@ -63,29 +63,24 @@
         android:id="@+id/cancalReviewButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="250dp"
         android:layout_marginBottom="16dp"
         android:backgroundTint="#F64C4C"
         android:text="Discard post"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.526"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintEnd_toStartOf="@+id/postReviewPageButton"
+        app:layout_constraintHorizontal_bias="0.125"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <Button
         android:id="@+id/postReviewPageButton"
         android:layout_width="132dp"
         android:layout_height="49dp"
-        android:layout_marginStart="250dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="16dp"
         android:backgroundTint="#138DED"
         android:text="Post review"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+        app:layout_constraintEnd_toEndOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
