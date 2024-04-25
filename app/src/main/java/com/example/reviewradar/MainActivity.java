@@ -42,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RestaurantAdapter adapter;
 
+
+
     private Map<String, Restaurant> restaurantMapData;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -50,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             if (item.getItemId() == R.id.home) {
-                startActivity(new Intent(MainActivity.this, MainActivity.class));
+                startActivity(new Intent(MainActivity.this, ViewHomePage.class));
                 return true;
             } else if (item.getItemId() == R.id.profile) {
                 startActivity(new Intent(MainActivity.this, CreateAccount.class));
@@ -74,44 +76,24 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        AccessData resData = new AccessData(null);
-        resData.retrieveAllRestaurants(new AccessData.RestaurantDataCallback() {
+        AccessData.retrieveAllRestaurants(new AccessData.RestaurantDataCallback() {
             @Override
             public void onDataLoaded(Map<String, Restaurant> restaurantMap) {
-                restaurantMapData = restaurantMap;
-                RestaurantData.restaurantMap = restaurantMapData;
+                try {
+                    InputStream inputStream = getAssets().open("restaurantsERHP.txt");
+                    parseCSV(inputStream);
+                    inputStream.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                recyclerView = findViewById(R.id.recycler_view);
+                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                adapter = new RestaurantAdapter(AccessData.restaurantMap);
+                recyclerView.setAdapter(adapter);
+
             }
         });
-
-        //Parse csv file to obtain new restaurant data
-        try {
-            InputStream inputStream = getAssets().open("restaurantsERHP.txt");
-            parseCSV(inputStream);
-            inputStream.close();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        //testing
-//        for (Map.Entry<String, Restaurant> entry : restaurantMap.entrySet()) {
-//            Log.i("XXX", "I'm in here");
-//            String restaurantName = entry.getKey();
-//            Restaurant restaurant = entry.getValue();
-//            Log.d("HashMapContents", "Restaurant Name: " + restaurantName + ", Restaurant: " + restaurant);
-//        }
-
-
-//        recyclerView = findViewById(R.id.recycler_view);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-////        adapter = new RestaurantAdapter(RestaurantData.restaurantMap);
-//        adapter = new RestaurantAdapter(restaurantMap);
-//
-//        recyclerView.setAdapter(adapter);
-
-        recyclerView = findViewById(R.id.recycler_view);
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-        adapter = new RestaurantAdapter(RestaurantData.restaurantMap);
-        recyclerView.setAdapter(adapter);
 
     }
 
@@ -137,8 +119,8 @@ public class MainActivity extends AppCompatActivity {
 
                 //Check if restaurant already exists in database, add if not
                 AccessData resData = new AccessData(restaurantName);
-                if (!RestaurantData.restaurantMap.containsKey(restaurantName)) {
-                    //Create a new Restaurant object
+
+                if (!AccessData.restaurantMap.containsKey(restaurantName)) {
                     Restaurant restaurant = new Restaurant(restaurantName, cuisineType, address);
                     resData.updateRestaurant(restaurantName, restaurant);
                 }

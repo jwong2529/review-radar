@@ -35,15 +35,18 @@ public class ViewRestaurantPage extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view_2);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         AccessData resData = new AccessData(restaurantName);
-        Restaurant restaurant = resData.retrieveRestaurant();
-        adapter = new ReviewAdapter(restaurant.getReviews());
-        recyclerView.setAdapter(adapter);
+//        Restaurant restaurant = resData.retrieveRestaurant();
+//        adapter = new ReviewAdapter(restaurant.getReviews());
+        // TESTING HERE
+//        Restaurant restaurant = RestaurantData.restaurantMap.get(restaurantName);
+//        adapter = new ReviewAdapter(restaurant.getReviews());
+//        recyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                Intent intent = new Intent(v.getContext(), ViewHomePage.class);
                 v.getContext().startActivity(intent);
             }
         });
@@ -60,26 +63,25 @@ public class ViewRestaurantPage extends AppCompatActivity {
     }
 
     private void updatePageFields() {
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference restaurantRef = database.getReference(restaurantName);
-
-//        Restaurant restaurant = RestaurantData.restaurantMap.get(restaurantName);
-
-        //testing
         AccessData checkData = new AccessData(restaurantName);
-        Restaurant restaurant = checkData.retrieveRestaurant();
 
-        TextView restaurantNameTV = findViewById(R.id.restaurantPageTitle);
-        TextView cuisineTypeTV = findViewById(R.id.restaurantPageCuisineType);
-        TextView addressTV = findViewById(R.id.restaurantPageAddress);
+        checkData.retrieveRestaurant(new AccessData.RestaurantObjectCallback() {
+            @Override
+            public void onDataLoaded(Restaurant restaurant) {
+                TextView restaurantNameTV = findViewById(R.id.restaurantPageTitle);
+                TextView cuisineTypeTV = findViewById(R.id.restaurantPageCuisineType);
+                TextView addressTV = findViewById(R.id.restaurantPageAddress);
 
-        String cuisineType = restaurant.getCuisineType();
-        String address = restaurant.getAddress();
+                String cuisineType = restaurant.getCuisineType();
+                String address = restaurant.getAddress();
 
 
-        restaurantNameTV.setText(restaurantName);
-        cuisineTypeTV.setText(cuisineType);
-        addressTV.setText(address);
+                restaurantNameTV.setText(restaurantName);
+                cuisineTypeTV.setText(cuisineType);
+                addressTV.setText(address);
+            }
+        });
+
 
     }
 }

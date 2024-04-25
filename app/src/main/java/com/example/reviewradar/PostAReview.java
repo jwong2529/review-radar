@@ -41,7 +41,7 @@ public class PostAReview extends AppCompatActivity {
         cancelReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                Intent intent = new Intent(v.getContext(), ViewHomePage.class);
                 v.getContext().startActivity(intent);
             }
         });
@@ -68,7 +68,8 @@ public class PostAReview extends AppCompatActivity {
         //testing
         AccessData resData = new AccessData(restaurantNameText);
 
-        if (RestaurantData.restaurantMap.containsKey(restaurantNameText)) {
+//        if (RestaurantData.restaurantMap.containsKey(restaurantNameText)) {
+        if (AccessData.restaurantMap.containsKey(restaurantNameText)) {
             if (checkDescription()) {
                 RatingBar ratingBar = findViewById(R.id.postReviewRatingBar);
                 EditText reviewET = findViewById(R.id.postReviewDescription);
@@ -77,11 +78,21 @@ public class PostAReview extends AppCompatActivity {
                 String reviewDescription = reviewET.getText().toString();
                 RestaurantReview review = new RestaurantReview("Test name", rating, reviewDescription);
 
-                Restaurant restaurant = resData.retrieveRestaurant();
-                restaurant.addReview(review);
+//                Restaurant restaurant = resData.retrieveRestaurant();
+                resData.retrieveRestaurant(new AccessData.RestaurantObjectCallback() {
+                    @Override
+                    public void onDataLoaded(Restaurant restaurant) {
+                        restaurant.addReview(review);
+                        resData.updateRestaurant(restaurantNameText, restaurant);
+                    }
+                });
 
-//                restaurantRef.setValue(restaurant);
-                resData.updateRestaurant(restaurantNameText, restaurant);
+                //testing
+//                resData.addReviewToRestaurant(restaurantNameText, review);
+
+//                restaurant.addReview(review);
+
+//                resData.updateRestaurant(restaurantNameText, restaurant);
 
                 showToast("Review posted!");
 

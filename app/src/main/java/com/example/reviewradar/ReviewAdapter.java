@@ -9,15 +9,18 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> {
 
     private List<RestaurantReview> reviews;
+//    private List<Integer> intPositions;  //testing
     String restaurantName;
 
     public ReviewAdapter(List<RestaurantReview> reviews) {
         this.reviews = reviews;
+//        this.intPositions = new ArrayList<>()(reviews.)
     }
     @NonNull
     @Override
