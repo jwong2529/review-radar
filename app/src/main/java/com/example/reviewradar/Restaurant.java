@@ -13,7 +13,8 @@ public class Restaurant {
     private List<String> imageUrls;
 
     public Restaurant() {
-
+        this.reviews = new ArrayList<>();
+        this.imageUrls = new ArrayList<>();
     }
     public Restaurant(String name, String cuisineType, String address) {
         this.name = name;

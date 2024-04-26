@@ -137,10 +137,6 @@ public class AccessData {
 
         AccessData.restaurantMap.put(restaurantName, restaurant);
 
-//        if (!AccessData.restaurantMap.containsKey(restaurantName)) {
-//            AccessData.restaurantMap.put(restaurantName, restaurant);
-//        }
-
     }
 
     public static void printRestaurantData() {
@@ -155,22 +151,9 @@ public class AccessData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference restaurantRef = database.getReference(restaurantName);
 
-        restaurantRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Restaurant restaurant = snapshot.getValue(Restaurant.class);
-                restaurant.addReview(review);
-                Log.i("another", String.valueOf(restaurant.getReviews().size()));
-                restaurantRef.child("reviews").setValue(restaurant.getReviews());
-
-//                Log.i("XXX", String.valueOf(restaurant.getReviews().get(0)));
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        Restaurant restaurant = AccessData.restaurantMap.get(restaurantName);
+        restaurant.addReview(review);
+        restaurantRef.setValue(restaurant);
     }
 
     //make methods for retrieving user data

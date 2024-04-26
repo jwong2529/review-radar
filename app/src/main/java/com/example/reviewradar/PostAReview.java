@@ -60,11 +60,6 @@ public class PostAReview extends AppCompatActivity {
         EditText restaurantNameET = findViewById(R.id.postReviewResTitle);
         String restaurantNameText = restaurantNameET.getText().toString();
 
-//        Restaurant restaurant = RestaurantData.restaurantMap.get(restaurantNameText);
-//
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference restaurantRef = database.getReference(restaurantNameText);
-
         //testing
         AccessData resData = new AccessData(restaurantNameText);
 
@@ -78,21 +73,8 @@ public class PostAReview extends AppCompatActivity {
                 String reviewDescription = reviewET.getText().toString();
                 RestaurantReview review = new RestaurantReview("Test name", rating, reviewDescription);
 
-//                Restaurant restaurant = resData.retrieveRestaurant();
-                resData.retrieveRestaurant(new AccessData.RestaurantObjectCallback() {
-                    @Override
-                    public void onDataLoaded(Restaurant restaurant) {
-                        restaurant.addReview(review);
-                        resData.updateRestaurant(restaurantNameText, restaurant);
-                    }
-                });
+                resData.addReviewToRestaurant(restaurantNameText, review);
 
-                //testing
-//                resData.addReviewToRestaurant(restaurantNameText, review);
-
-//                restaurant.addReview(review);
-
-//                resData.updateRestaurant(restaurantNameText, restaurant);
 
                 showToast("Review posted!");
 
