@@ -10,6 +10,7 @@ import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -21,8 +22,11 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -42,9 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private RecyclerView recyclerView;
     private RestaurantAdapter adapter;
 
+    List<Restaurant> restaurantList;
 
-
-    private Map<String, Restaurant> restaurantMapData;
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -52,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             if (item.getItemId() == R.id.home) {
-                startActivity(new Intent(MainActivity.this, ViewHomePage.class));
+                startActivity(new Intent(MainActivity.this, MainActivity.class));
                 return true;
             } else if (item.getItemId() == R.id.profile) {
                 startActivity(new Intent(MainActivity.this, CreateAccount.class));
@@ -75,7 +78,6 @@ public class MainActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
 
-
         AccessData.retrieveAllRestaurants(new AccessData.RestaurantDataCallback() {
             @Override
             public void onDataLoaded(Map<String, Restaurant> restaurantMap) {
@@ -89,8 +91,24 @@ public class MainActivity extends AppCompatActivity {
 
                 recyclerView = findViewById(R.id.recycler_view);
                 recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                adapter = new RestaurantAdapter(AccessData.restaurantMap);
+                recyclerView.setHasFixedSize(true); //new
+                adapter = new RestaurantAdapter(restaurantList);
                 recyclerView.setAdapter(adapter);
+
+                //new
+                SearchView searchView = findViewById(R.id.searchWidget);
+                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                    @Override
+                    public boolean onQueryTextSubmit(String query) {
+                        return false;
+                    }
+
+                    @Override
+                    public boolean onQueryTextChange(String newText) {
+                        filterRestaurants(newText);
+                        return true;
+                    }
+                });
 
             }
         });
@@ -130,7 +148,23 @@ public class MainActivity extends AppCompatActivity {
         catch (IOException e) {
             e.printStackTrace();
         }
+
+        restaurantList = new ArrayList<>();
+        for (Restaurant restaurant : AccessData.restaurantMap.values()) {
+            restaurantList.add(restaurant);
+        }
+
     }
 
+    private void filterRestaurants(String query) {
+        List<Restaurant> filteredRestaurants = new ArrayList<>();
+
+        for (Restaurant restaurant : restaurantList) {
+            if (restaurant.getName().toLowerCase().contains(query.toLowerCase())) {
+                filteredRestaurants.add(restaurant);
+            }
+        }
+        adapter.filterRestaurants(filteredRestaurants);
+    }
 
 }

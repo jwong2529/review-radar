@@ -11,6 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+//may not be using this class anymore, currently using MainActivity instead
+
 public class ViewHomePage extends AppCompatActivity {
 
     private RecyclerView recyclerView;
@@ -47,7 +49,8 @@ public class ViewHomePage extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(ViewHomePage.this));
-        adapter = new RestaurantAdapter(AccessData.restaurantMap);
+//        adapter = new RestaurantAdapter(AccessData.restaurantMap);
+//        adapter = new RestaurantAdapter(AccessData.restaurantMap);
         recyclerView.setAdapter(adapter);
     }
 }

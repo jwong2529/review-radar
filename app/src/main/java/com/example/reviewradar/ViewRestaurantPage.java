@@ -46,7 +46,7 @@ public class ViewRestaurantPage extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), ViewHomePage.class);
+                Intent intent = new Intent(v.getContext(), MainActivity.class);
                 v.getContext().startActivity(intent);
             }
         });

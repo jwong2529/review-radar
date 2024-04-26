@@ -15,15 +15,18 @@ import java.util.List;
 import java.util.Map;
 
 public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.RestaurantViewHolder> {
-    private Map<String, Restaurant> restaurantMap;
-    private List<String> restaurantNames;
 
-//    private Context context;
+    private List<Restaurant> restaurantList;
 
-    public RestaurantAdapter(Map<String, Restaurant> restaurantMap) {
-        this.restaurantMap = restaurantMap;
-        this.restaurantNames = new ArrayList<>(restaurantMap.keySet());
-//        this.context = context;
+
+    public RestaurantAdapter(List<Restaurant> restaurantList) {
+        this.restaurantList = restaurantList;
+
+    }
+
+    public void filterRestaurants(List<Restaurant> filteredList) {
+        this.restaurantList = filteredList;
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -35,15 +38,15 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
 
     @Override
     public void onBindViewHolder(@NonNull RestaurantViewHolder holder, int position) {
-        String restaurantName = restaurantNames.get(position);
-        String cuisineType = restaurantMap.get(restaurantName).getCuisineType();
-        holder.bind(restaurantName, cuisineType);
+
+        Restaurant restaurant = restaurantList.get(position);
+        holder.bind(restaurant);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(v.getContext(), ViewRestaurantPage.class);
-                intent.putExtra("restaurantName", restaurantName); //i added this, mb del
+                intent.putExtra("restaurantName", restaurant.getName()); //i added this, mb del
                 v.getContext().startActivity(intent);
             }
         });
@@ -52,7 +55,7 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
 
     @Override
     public int getItemCount() {
-        return restaurantMap.size();
+        return restaurantList.size();
     }
 
     static class RestaurantViewHolder extends RecyclerView.ViewHolder {
@@ -67,11 +70,10 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
             restaurantPostRB = itemView.findViewById(R.id.restaurantPostRating);
         }
 
-        public void bind(String restaurantName, String cuisineType) {
-            restaurantNameTextView.setText(restaurantName);
-            cuisineTypeTextView.setText(cuisineType);
+        public void bind(Restaurant restaurant) {
+            restaurantNameTextView.setText(restaurant.getName());
+            cuisineTypeTextView.setText(restaurant.getCuisineType());
 
-            Restaurant restaurant = AccessData.restaurantMap.get(restaurantName);
             restaurantPostRB.setRating(restaurant.getAverageRating());
         }
     }
