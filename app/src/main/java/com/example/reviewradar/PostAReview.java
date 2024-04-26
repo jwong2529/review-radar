@@ -71,7 +71,7 @@ public class PostAReview extends AppCompatActivity {
 
                 float rating = ratingBar.getRating();
                 String reviewDescription = reviewET.getText().toString();
-                RestaurantReview review = new RestaurantReview("Test name", rating, reviewDescription);
+                RestaurantReview review = new RestaurantReview("User", rating, reviewDescription);
 
                 resData.addReviewToRestaurant(restaurantNameText, review);
 

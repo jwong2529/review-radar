@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -57,16 +58,21 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     static class RestaurantViewHolder extends RecyclerView.ViewHolder {
         private TextView restaurantNameTextView;
         private TextView cuisineTypeTextView;
+        private RatingBar restaurantPostRB;
 
         public RestaurantViewHolder(@NonNull View itemView) {
             super(itemView);
             restaurantNameTextView = itemView.findViewById(R.id.restaurant_name);
             cuisineTypeTextView = itemView.findViewById(R.id.restaurant_cuisine_type);
+            restaurantPostRB = itemView.findViewById(R.id.restaurantPostRating);
         }
 
         public void bind(String restaurantName, String cuisineType) {
             restaurantNameTextView.setText(restaurantName);
             cuisineTypeTextView.setText(cuisineType);
+
+            Restaurant restaurant = AccessData.restaurantMap.get(restaurantName);
+            restaurantPostRB.setRating(restaurant.getAverageRating());
         }
     }
 }

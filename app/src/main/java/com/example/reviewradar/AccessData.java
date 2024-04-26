@@ -154,6 +154,7 @@ public class AccessData {
         Restaurant restaurant = AccessData.restaurantMap.get(restaurantName);
         restaurant.addReview(review);
         restaurantRef.setValue(restaurant);
+
     }
 
     //make methods for retrieving user data

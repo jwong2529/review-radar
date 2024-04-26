@@ -12,6 +12,7 @@ public class Restaurant {
     private List<RestaurantReview> reviews;
     private List<String> imageUrls;
 
+
     public Restaurant() {
         this.reviews = new ArrayList<>();
         this.imageUrls = new ArrayList<>();
@@ -70,6 +71,22 @@ public class Restaurant {
 
     public void addImageUrl(String imageUrl) {
         imageUrls.add(imageUrl);
+    }
+
+    public float getAverageRating() {
+        List<RestaurantReview> restaurantReviews = getReviews();
+        int reviewsSize = restaurantReviews.size();
+
+        float averageRating = 0;
+        for (int i = 0; i < reviewsSize; i++) {
+            float rating = restaurantReviews.get(i).getRating();
+            averageRating += rating;
+        }
+
+        averageRating = averageRating / reviewsSize;
+        //round the average rating to nearest 0.5 increment
+        float roundedAverageRating = (float)Math.round(averageRating * 2)/2.0f;
+        return roundedAverageRating;
     }
 
 }

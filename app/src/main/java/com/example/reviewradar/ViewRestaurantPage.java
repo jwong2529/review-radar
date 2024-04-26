@@ -10,9 +10,13 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.util.List;
 
 public class ViewRestaurantPage extends AppCompatActivity {
 
@@ -34,13 +38,9 @@ public class ViewRestaurantPage extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recycler_view_2);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        AccessData resData = new AccessData(restaurantName);
-//        Restaurant restaurant = resData.retrieveRestaurant();
-//        adapter = new ReviewAdapter(restaurant.getReviews());
-        // TESTING HERE
-//        Restaurant restaurant = RestaurantData.restaurantMap.get(restaurantName);
-//        adapter = new ReviewAdapter(restaurant.getReviews());
-//        recyclerView.setAdapter(adapter);
+        Restaurant restaurant = AccessData.restaurantMap.get(restaurantName);
+        adapter = new ReviewAdapter(restaurant.getReviews());
+        recyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -79,9 +79,23 @@ public class ViewRestaurantPage extends AppCompatActivity {
                 restaurantNameTV.setText(restaurantName);
                 cuisineTypeTV.setText(cuisineType);
                 addressTV.setText(address);
+
+                setAverageRating(restaurant);
             }
         });
+    }
 
+    public void setAverageRating(Restaurant restaurant) {
 
+        if (restaurant.getReviews().isEmpty()) {
+            showToast("Be the first to leave a review!");
+        }
+
+        RatingBar restaurantPageRB = findViewById(R.id.restaurantPageRating);
+        restaurantPageRB.setRating(restaurant.getAverageRating());
+    }
+
+    private void showToast(String message) {
+        Toast.makeText(ViewRestaurantPage.this, message, Toast.LENGTH_SHORT).show();
     }
 }

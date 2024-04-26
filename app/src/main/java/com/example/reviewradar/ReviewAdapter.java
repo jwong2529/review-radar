@@ -15,12 +15,10 @@ import java.util.List;
 public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewViewHolder> {
 
     private List<RestaurantReview> reviews;
-//    private List<Integer> intPositions;  //testing
-    String restaurantName;
+
 
     public ReviewAdapter(List<RestaurantReview> reviews) {
         this.reviews = reviews;
-//        this.intPositions = new ArrayList<>()(reviews.)
     }
     @NonNull
     @Override
@@ -32,7 +30,8 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     @Override
     public void onBindViewHolder(@NonNull ReviewAdapter.ReviewViewHolder holder, int position) {
         RestaurantReview review = reviews.get(position);
-        holder.bind(review.getReviewerName(), review.getComment(), review.getRating());
+//        holder.bind(review.getReviewerName(), review.getComment(), review.getRating());
+        holder.bind(review);
     }
 
     @Override
@@ -40,21 +39,27 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
         return reviews.size();
     }
 
-    static class ReviewViewHolder extends RecyclerView.ViewHolder {
+    public static class ReviewViewHolder extends RecyclerView.ViewHolder {
         private TextView usernameTextView;
         private TextView userReviewTextView;
         private RatingBar userRatingBar;
 
         public ReviewViewHolder(@NonNull View itemView) {
             super(itemView);
+            usernameTextView = itemView.findViewById(R.id.reviewPostUsername);
             userReviewTextView = itemView.findViewById(R.id.reviewPostReview);
             userRatingBar = itemView.findViewById(R.id.reviewPostRating);
         }
 
-        public void bind(String username, String review, float rating) {
-            usernameTextView.setText("User");   //need to set up usernames for users
-            userReviewTextView.setText(review);
-            userRatingBar.setRating(rating);
+//        public void bind(String username, String review, float rating) {
+//            usernameTextView.setText(username);   //need to set up usernames for users
+//            userReviewTextView.setText(review);
+//            userRatingBar.setRating(rating);
+//        }
+        public void bind(RestaurantReview review) {
+            usernameTextView.setText(review.getReviewerName());
+            userReviewTextView.setText(review.getComment());
+            userRatingBar.setRating(review.getRating());
         }
     }
 
