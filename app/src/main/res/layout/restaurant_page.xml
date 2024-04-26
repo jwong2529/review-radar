@@ -43,26 +43,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/restaurantPageImage" />
 
-<!--            <RatingBar-->
-<!--                android:id="@+id/reviewPostRating"-->
-<!--                style="?android:attr/ratingBarStyleIndicator"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_marginBottom="12dp"-->
-<!--                android:background="#138DED"-->
-<!--                android:numStars="5"-->
-<!--                android:progressTint="#FFCC01"-->
-<!--                android:rating="3"-->
-<!--                android:scaleX="0.5"-->
-<!--                android:scaleY="0.5"-->
-<!--                android:stepSize="0.5"-->
-<!--                app:layout_constraintBottom_toBottomOf="@+id/restaurantPageImage"-->
-<!--                app:layout_constraintEnd_toEndOf="parent"-->
-<!--                app:layout_constraintHorizontal_bias="0.0"-->
-<!--                app:layout_constraintStart_toStartOf="parent"-->
-<!--                app:layout_constraintTop_toBottomOf="@+id/restaurantPageTitle"-->
-<!--                app:layout_constraintVertical_bias="1.0" />-->
-
             <RatingBar
                 android:id="@+id/restaurantPageRating"
                 style="?android:attr/ratingBarStyleSmall"
@@ -78,6 +58,24 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/restaurantPageTitle"
                 app:layout_constraintVertical_bias="0.404" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/restaurantPageFavButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:src="@android:drawable/ic_input_add"
+                app:backgroundTint="@android:color/white"
+                app:fabCustomSize="30dp"
+                app:fabSize="auto"
+                app:layout_constraintBottom_toBottomOf="@+id/restaurantPageImage"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.735"
+                app:layout_constraintStart_toEndOf="@+id/restaurantPageTitle"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.876"
+                app:maxImageSize="25dp"
+                app:tint="@color/black" />
 
             <LinearLayout
                 android:id="@+id/linearLayout"

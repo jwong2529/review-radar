@@ -1,16 +1,32 @@
 package com.example.reviewradar;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     private int id;
     private String username;
     private String email;
     private String password;
 
+    private List<RestaurantReview> userReviews;
+
+    private List<RestaurantReview> userFavorites;
+
+    //Firebase needs no argument constructor
+    public User() {
+        this.userReviews = new ArrayList<>();
+        this.userFavorites = new ArrayList<>();
+    }
+
     // Constructor
     public User(String email, String password) {
+        //should add username to list of arguments
 
         this.password = password;
         this.email = email;
+        this.userReviews = new ArrayList<>();
+        this.userFavorites = new ArrayList<>();
     }
 
     // Getters and setters
