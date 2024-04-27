@@ -191,8 +191,10 @@ public class AccessData {
     public void addReviewToUser(User user, RestaurantReview review) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference userRef = database.getReference("users").child(user.getUserKey());
-        user.addUserReview(review);
+//        user.addUserReview(review);
 //        Log.i("xxx", user.getUserReviews().get(0).getComment());
 //        userRef.setValue(user);
+        user.setTest(review.getComment());
+        userRef.setValue(user);
     }
 }

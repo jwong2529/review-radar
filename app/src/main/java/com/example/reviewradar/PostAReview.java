@@ -79,7 +79,7 @@ public class PostAReview extends AppCompatActivity {
 
                         resData.addReviewToRestaurant(restaurantNameText, review);
 
-                        resData.addReviewToUser(user, review);
+//                        resData.addReviewToUser(user, review);
 
 
                         showToast("Review posted!");
