@@ -25,9 +25,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-
-
-
 import android.util.Log;
 
 
@@ -43,7 +40,7 @@ public class CreateAccount extends AppCompatActivity {
     private FirebaseAuth mAuth;
 
 
-    //Firebase realtime authentication
+    //Firebase realtime database
     private FirebaseDatabase mDatabase;
 
 
@@ -112,9 +109,11 @@ public class CreateAccount extends AppCompatActivity {
                     // User created in authentication database
                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
                     // Generate a unique key for the new user node
-                    String userId = mDatabase.getReference("users").push().getKey();
+//                    String userId = mDatabase.getReference("users").push().getKey();
+                    String userId = firebaseUser.getUid();
                     // Set the user object as the value of the new user node
                     User user = new User(userId, username, email, password);
+
                     mDatabase.getReference("users").child(userId).setValue(user);
 
                     Toast.makeText(CreateAccount.this, "Account created.", Toast.LENGTH_SHORT).show();

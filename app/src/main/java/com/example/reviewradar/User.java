@@ -13,8 +13,6 @@ public class User {
 
 
     private List<RestaurantReview> userReviews;
-
-
     private List<Restaurant> userFavorites;
 
 
@@ -29,8 +27,9 @@ public class User {
     public User(String userKey, String username, String email, String password) {
         this.userKey = userKey;
         this.username = username;
-        this.password = password;
         this.email = email;
+        this.password = password;
+
         this.userReviews = new ArrayList<>();
         this.userFavorites = new ArrayList<>();
     }
@@ -87,8 +86,8 @@ public class User {
     }
 
 
-    public void addUserReview(RestaurantReview review) {
-        userReviews.add(review);
+    public void addUserReview(RestaurantReview userReview) {
+        userReviews.add(userReview);
     }
 
 

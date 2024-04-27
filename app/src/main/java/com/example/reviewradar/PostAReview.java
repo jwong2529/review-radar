@@ -71,16 +71,34 @@ public class PostAReview extends AppCompatActivity {
 
                 float rating = ratingBar.getRating();
                 String reviewDescription = reviewET.getText().toString();
-                RestaurantReview review = new RestaurantReview("User", rating, reviewDescription);
 
-                resData.addReviewToRestaurant(restaurantNameText, review);
+                AccessData.retrieveUserObject(new AccessData.UserObjectCallback() {
+                    @Override
+                    public void onDataLoaded(User user) {
+                        RestaurantReview review = new RestaurantReview(user, rating, reviewDescription);
+
+                        resData.addReviewToRestaurant(restaurantNameText, review);
+
+                        resData.addReviewToUser(user, review);
 
 
-                showToast("Review posted!");
+                        showToast("Review posted!");
 
-                Intent intent = new Intent(PostAReview.this, ViewRestaurantPage.class);
-                intent.putExtra("restaurantName", restaurantName);
-                startActivity(intent);
+                        Intent intent = new Intent(PostAReview.this, ViewRestaurantPage.class);
+                        intent.putExtra("restaurantName", restaurantName);
+                        startActivity(intent);
+                    }
+                });
+//                RestaurantReview review = new RestaurantReview(null, rating, reviewDescription);
+//
+//                resData.addReviewToRestaurant(restaurantNameText, review);
+//
+//
+//                showToast("Review posted!");
+//
+//                Intent intent = new Intent(PostAReview.this, ViewRestaurantPage.class);
+//                intent.putExtra("restaurantName", restaurantName);
+//                startActivity(intent);
             } else {
                 showToast("Review must be between 0 and 250 characters.");
             }

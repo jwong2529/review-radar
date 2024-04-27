@@ -51,13 +51,10 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
             userRatingBar = itemView.findViewById(R.id.reviewPostRating);
         }
 
-//        public void bind(String username, String review, float rating) {
-//            usernameTextView.setText(username);   //need to set up usernames for users
-//            userReviewTextView.setText(review);
-//            userRatingBar.setRating(rating);
-//        }
         public void bind(RestaurantReview review) {
-            usernameTextView.setText(review.getReviewerName());
+//            usernameTextView.setText(review.getUser().getUsername());
+            usernameTextView.setText(review.getUser().getUsername());
+
             userReviewTextView.setText(review.getComment());
             userRatingBar.setRating(review.getRating());
         }

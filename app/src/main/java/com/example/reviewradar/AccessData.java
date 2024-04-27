@@ -5,6 +5,8 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 
 import com.google.firebase.Firebase;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -76,7 +78,6 @@ public class AccessData {
 
             }
         });
-//        return restaurant;
     }
 
     public interface RestaurantObjectCallback {
@@ -157,5 +158,41 @@ public class AccessData {
 
     }
 
+    public static void retrieveUserObject(UserObjectCallback callback) {
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        FirebaseUser fbUser = mAuth.getCurrentUser();
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userRef = database.getReference("users").child(fbUser.getUid());
+
+        userRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User user;
+                if (snapshot.exists()) {
+                    user = snapshot.getValue(User.class);
+                } else {
+                    user = null;
+                }
+                callback.onDataLoaded(user);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public interface UserObjectCallback {
+        void onDataLoaded(User user);
+    }
+
+    public void addReviewToUser(User user, RestaurantReview review) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userRef = database.getReference("users").child(user.getUserKey());
+        user.addUserReview(review);
+//        Log.i("xxx", user.getUserReviews().get(0).getComment());
+//        userRef.setValue(user);
+    }
 }

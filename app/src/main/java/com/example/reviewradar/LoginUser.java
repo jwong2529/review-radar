@@ -46,7 +46,7 @@ public class LoginUser extends AppCompatActivity {
     }
 
 
-    //Handle user login (move this to loginuser class)
+    //Handle user login
     private void signIn(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(this, task -> {
             if (task.isSuccessful()) {
