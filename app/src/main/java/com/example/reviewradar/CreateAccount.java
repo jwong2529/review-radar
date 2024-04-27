@@ -1,107 +1,112 @@
 package com.example.reviewradar;
 
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+
+import android.content.Intent;
 import android.os.Bundle;
+
+
 import android.view.View;
-import android.widget.TextView;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Toast;
 
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.button.MaterialButton;
+import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-
-import android.util.Log;
-
-
-import androidx.annotation.NonNull;
-
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 
 
+
+import android.util.Log;
+
+
+import java.util.List;
+
+
+
+
 public class CreateAccount extends AppCompatActivity {
+
+
+    //Firebase authentication
     private FirebaseAuth mAuth;
-    private DatabaseReference mDatabase;
-    private static final String TAG = "CustomAuthActivity";
-    private String mCustomToken;
+
+
+    //Firebase realtime authentication
+    private FirebaseDatabase mDatabase;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+
         setContentView(R.layout.activity_create_account_old);
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        TextView username = findViewById(R.id.username);
-        TextView password = findViewById(R.id.password);
-        MaterialButton createButton = findViewById(R.id.createButton);
 
-        createButton.setOnClickListener(new View.OnClickListener() {
+         mAuth = FirebaseAuth.getInstance();
+         mDatabase = FirebaseDatabase.getInstance();
+
+         //onClickListeners stuff
+         Button createAccountButton = findViewById(R.id.createAccountPageButton);
+         createAccountButton.setOnClickListener(new View.OnClickListener() {
+             @Override
+             public void onClick(View v) {
+                 EditText createAccountUsername = findViewById(R.id.createAccountUsername);
+                 EditText createAccountEmail = findViewById(R.id.createAccountEmail);
+                 EditText createAccountPassword = findViewById(R.id.createAccountPassword);
+
+                 String usernameText = createAccountUsername.getText().toString();
+                 String emailText = createAccountEmail.getText().toString();
+                 String passwordText = createAccountPassword.getText().toString();
+
+                 createAccount(usernameText, emailText, passwordText);
+
+                 Toast.makeText(CreateAccount.this, "Account created.", Toast.LENGTH_SHORT).show();
+                 Intent intent = new Intent(v.getContext(), MainActivity.class);
+                 v.getContext().startActivity(intent);
+             }
+         });
+
+
+    }
+
+
+    //Handle account creation
+    private void createAccount(String username, String email, String password) {
+        //Check if user already exists in database
+        mAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
-            public void onClick(View v) {
-                String email = username.getText().toString();
-                String userPassword = password.getText().toString();
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if (task.isSuccessful()) {
+                    Log.i("XXX", "please");
+                    // User created in authentication database
+                    FirebaseUser firebaseUser = mAuth.getCurrentUser();
+                    // Generate a unique key for the new user node
+                    String userId = mDatabase.getReference("users").push().getKey();
+                    // Set the user object as the value of the new user node
+                    User user = new User(userId, username, email, password);
+                    mDatabase.getReference("users").child(userId).setValue(user);
 
-                // Create a user object with username and password
-                User newUser = new User(email, userPassword);
-
-                // Save user information to Firebase Realtime Database
-                String userId = mDatabase.child("users").push().getKey(); // Generate a unique key for the user
-                mDatabase.child("users").child(userId).setValue(newUser)
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                Log.d(TAG, "User information saved to database.");
-                                Toast.makeText(CreateAccount.this, "Account created successfully!", Toast.LENGTH_SHORT).show();
-                                finish(); // Close the activity after account creation
-                            } else {
-                                Log.w(TAG, "Failed to save user information to database.", task.getException());
-                                Toast.makeText(CreateAccount.this, "Failed to create account.", Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                } else {
+                    // Error creating user in authentication database
+                    Toast.makeText(CreateAccount.this, "Error creating user.", Toast.LENGTH_SHORT).show();
+                }
             }
         });
-    }
-
-
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-        // Check if user is signed in (non-null) and update UI accordingly.
-        FirebaseUser currentUser = mAuth.getCurrentUser();
-        updateUI(currentUser);
-    }
-    private void startSignIn() {
-        // [START sign_in_custom]
-        mAuth.signInWithCustomToken(mCustomToken)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            // Sign in success, update UI with the signed-in user's information
-                            Log.d(TAG, "signInWithCustomToken:success");
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            updateUI(user);
-                        } else {
-                            // If sign in fails, display a message to the user.
-                            Log.w(TAG, "signInWithCustomToken:failure", task.getException());
-                            Toast.makeText(CreateAccount.this, "Authentication failed.",
-                                    Toast.LENGTH_SHORT).show();
-                            updateUI(null);
-                        }
-                    }
-                });
-        // [END sign_in_custom]
-    }
-
-    private void updateUI(FirebaseUser user) {
 
     }
+
 
 }

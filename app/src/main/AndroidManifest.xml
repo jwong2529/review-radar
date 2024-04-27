@@ -22,9 +22,6 @@
             android:name=".CreateAccount"
             android:exported="false" />
         <activity
-            android:name=".ViewHomePage"
-            android:exported="false" />
-        <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustNothing"
             android:exported="true">

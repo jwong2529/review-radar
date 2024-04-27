@@ -61,7 +61,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Create Account"
+                android:text="Login"
                 android:textColor="@color/black"
                 android:textSize="32sp"
                 android:textStyle="bold" />
@@ -70,43 +70,6 @@
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="25dp" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:alpha="0.7"
-                android:text="What name would you like to go by?" />
-
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:alpha="0.7"
-                android:text="Name"
-                android:textStyle="bold" />
-
-
-            <EditText
-                android:id="@+id/createAccountUsername"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableEnd="@drawable/done_icon"
-                android:inputType="textEmailAddress" />
-
-
-            <View
-                android:id="@+id/view"
-                android:layout_width="match_parent"
-                android:layout_height="10dp" />
-
-
-            <TextView
-                android:id="@+id/textView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:alpha="0.7"
-                android:text="Enter an email address and create a password." />
 
 
             <TextView
@@ -154,23 +117,6 @@
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="20dp" />
-
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/createAccountPageButton"
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:text="Create Account"
-                app:cornerRadius="32dp" />
-
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:alpha="0.7"
-                android:text="Or"
-                android:visibility="visible" />
 
 
             <LinearLayout
