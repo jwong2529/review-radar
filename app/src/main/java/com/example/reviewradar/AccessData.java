@@ -155,7 +155,6 @@ public class AccessData {
         Restaurant restaurant = AccessData.restaurantMap.get(restaurantName);
         restaurant.addReview(review);
         restaurantRef.setValue(restaurant);
-
     }
 
     public static void retrieveUserObject(UserObjectCallback callback) {
@@ -188,13 +187,13 @@ public class AccessData {
         void onDataLoaded(User user);
     }
 
-    public void addReviewToUser(User user, RestaurantReview review) {
+    public static void addReviewToUser(User user, RestaurantReview review) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference userRef = database.getReference("users").child(user.getUserKey());
 //        user.addUserReview(review);
-//        Log.i("xxx", user.getUserReviews().get(0).getComment());
 //        userRef.setValue(user);
         user.setTest(review.getComment());
         userRef.setValue(user);
+
     }
 }

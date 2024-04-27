@@ -53,7 +53,7 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
 
         public void bind(RestaurantReview review) {
 //            usernameTextView.setText(review.getUser().getUsername());
-            usernameTextView.setText(review.getUser().getUsername());
+            usernameTextView.setText("User");
 
             userReviewTextView.setText(review.getComment());
             userRatingBar.setRating(review.getRating());
