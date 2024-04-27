@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
 
         setContentView(R.layout.home_page);
 
+
         BottomNavigationView navigation = findViewById(R.id.bottomNavigationView);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 

@@ -19,13 +19,13 @@
             android:name=".ViewRestaurantPage"
             android:exported="false" />
         <activity
-            android:name=".CreateAccount"
+            android:name=".MainActivity"
             android:exported="false" />
         <activity
             android:name=".LoginUser"
             android:exported="false"/>
         <activity
-            android:name=".MainActivity"
+            android:name=".CreateAccount"
             android:windowSoftInputMode="adjustNothing"
             android:exported="true">
             <intent-filter>
