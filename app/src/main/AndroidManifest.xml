@@ -22,6 +22,9 @@
             android:name=".CreateAccount"
             android:exported="false" />
         <activity
+            android:name=".LoginUser"
+            android:exported="false"/>
+        <activity
             android:name=".MainActivity"
             android:windowSoftInputMode="adjustNothing"
             android:exported="true">

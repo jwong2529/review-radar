@@ -81,7 +81,7 @@
 
 
             <EditText
-                android:id="@+id/createAccountEmail"
+                android:id="@+id/loginPageEmail"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/done_icon"
@@ -102,7 +102,7 @@
 
 
             <EditText
-                android:id="@+id/createAccountPassword"
+                android:id="@+id/loginPagePassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:drawableEnd="@drawable/password_icon"
@@ -127,11 +127,11 @@
 
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/createAccountPageLoginButton"
+                    android:id="@+id/loginPageButton"
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_weight="1"
-                    android:text="Login to existing account"
+                    android:text="Login"
                     app:backgroundTint="#0084C0"
                     app:cornerRadius="32dp" />
             </LinearLayout>
