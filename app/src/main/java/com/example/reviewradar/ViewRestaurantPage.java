@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.util.Collections;
 import java.util.List;
 
 public class ViewRestaurantPage extends AppCompatActivity {
@@ -39,7 +40,12 @@ public class ViewRestaurantPage extends AppCompatActivity {
         recyclerView = findViewById(R.id.recycler_view_2);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         Restaurant restaurant = AccessData.restaurantMap.get(restaurantName);
-        adapter = new ReviewAdapter(restaurant.getReviews());
+
+        //reverse list so newest reviews are shown at top
+        List<RestaurantReview> restaurantReviews = restaurant.getReviews();
+        Collections.reverse(restaurantReviews);
+
+        adapter = new ReviewAdapter(restaurantReviews);
         recyclerView.setAdapter(adapter);
 
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);

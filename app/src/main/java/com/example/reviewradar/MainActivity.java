@@ -48,6 +48,8 @@ public class MainActivity extends AppCompatActivity {
 
     List<Restaurant> restaurantList;
 
+    private static boolean isFirstInstance = true;
+
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
@@ -82,12 +84,22 @@ public class MainActivity extends AppCompatActivity {
         AccessData.retrieveAllRestaurants(new AccessData.RestaurantDataCallback() {
             @Override
             public void onDataLoaded(Map<String, Restaurant> restaurantMap) {
-                try {
-                    InputStream inputStream = getAssets().open("restaurantsERHP.txt");
-                    parseCSV(inputStream);
-                    inputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
+
+                //only parse the csv during the first time the home page is run
+                if (isFirstInstance) {
+                    try {
+                        InputStream inputStream = getAssets().open("restaurantsERHP.txt");
+                        parseCSV(inputStream);
+                        inputStream.close();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    isFirstInstance = false;
+                }
+
+                restaurantList = new ArrayList<>();
+                for (Restaurant restaurant : AccessData.restaurantMap.values()) {
+                    restaurantList.add(restaurant);
                 }
 
                 recyclerView = findViewById(R.id.recycler_view);
@@ -122,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void parseCSV(InputStream inputStream) {
+
         try {
             BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
 
@@ -148,11 +161,6 @@ public class MainActivity extends AppCompatActivity {
         }
         catch (IOException e) {
             e.printStackTrace();
-        }
-
-        restaurantList = new ArrayList<>();
-        for (Restaurant restaurant : AccessData.restaurantMap.values()) {
-            restaurantList.add(restaurant);
         }
 
     }
