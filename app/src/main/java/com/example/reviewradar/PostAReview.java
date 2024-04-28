@@ -77,7 +77,7 @@ public class PostAReview extends AppCompatActivity {
                     public void onDataLoaded(User user) {
 //                        RestaurantReview review = new RestaurantReview(user, rating, reviewDescription);
 
-                        RestaurantReview review = new RestaurantReview(user.getUsername(), rating, reviewDescription);
+                        RestaurantReview review = new RestaurantReview(restaurantNameText, user.getUsername(), rating, reviewDescription);
 
                         resData.addReviewToRestaurant(restaurantNameText, review);
 

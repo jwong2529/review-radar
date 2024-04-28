@@ -2,7 +2,9 @@ package com.example.reviewradar;
 
 public class RestaurantReview {
 
-    String reviewerName;
+    private String restaurantName;
+
+    private String reviewerName;
     private float rating;
     private String comment;
     private String imageUrl;
@@ -10,12 +12,20 @@ public class RestaurantReview {
     public RestaurantReview() {
     }
 
-    public RestaurantReview(String reviewerName, float rating, String comment) {
-//        this.user = user;
+    public RestaurantReview(String restaurantName, String reviewerName, float rating, String comment) {
+        this.restaurantName = restaurantName;
         this.reviewerName = reviewerName;
         this.rating = rating;
         this.comment = comment;
         this.imageUrl = "";
+    }
+
+    public String getRestaurantName() {
+        return restaurantName;
+    }
+
+    public void setRestaurantName(String restaurantName) {
+        this.restaurantName = restaurantName;
     }
 
     public String getReviewerName() {

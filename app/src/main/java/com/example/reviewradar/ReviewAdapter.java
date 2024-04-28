@@ -30,7 +30,6 @@ public class ReviewAdapter extends RecyclerView.Adapter<ReviewAdapter.ReviewView
     @Override
     public void onBindViewHolder(@NonNull ReviewAdapter.ReviewViewHolder holder, int position) {
         RestaurantReview review = reviews.get(position);
-//        holder.bind(review.getReviewerName(), review.getComment(), review.getRating());
         holder.bind(review);
     }
 
