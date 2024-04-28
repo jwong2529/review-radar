@@ -60,7 +60,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(new Intent(MainActivity.this, MainActivity.class));
                 return true;
             } else if (item.getItemId() == R.id.profile) {
-                startActivity(new Intent(MainActivity.this, CreateAccount.class));
+                startActivity(new Intent(MainActivity.this, Profile.class));
                 return true;
             } else if (item.getItemId() == R.id.post_nav) {
                 startActivity(new Intent(MainActivity.this, PostAReview.class));
