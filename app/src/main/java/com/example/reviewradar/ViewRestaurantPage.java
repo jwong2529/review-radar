@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -24,7 +26,11 @@ public class ViewRestaurantPage extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ReviewAdapter adapter;
 
-    String restaurantName;
+    private String restaurantName;
+
+    //FavoriteButton colors
+    private ColorStateList yellowTint = ColorStateList.valueOf(Color.parseColor("#E5D443"));
+    private ColorStateList redTint = ColorStateList.valueOf(Color.parseColor("#F8C1BC"));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +70,41 @@ public class ViewRestaurantPage extends AppCompatActivity {
                 Intent intent = new Intent(v.getContext(), PostAReview.class);
                 intent.putExtra("restaurantName", restaurantName);
                 v.getContext().startActivity(intent);
+            }
+        });
+
+        FloatingActionButton favoriteButton = findViewById(R.id.restaurantPageFavButton);
+
+        //Display initial favorite status
+        AccessData.retrieveUserObject(new AccessData.UserObjectCallback() {
+            @Override
+            public void onDataLoaded(User user) {
+                if (user.getUserFavorites().contains(restaurantName)) {
+                    favoriteButton.setImageTintList(yellowTint);
+                }
+                else {
+                    favoriteButton.setImageTintList(redTint);
+                }
+            }
+        });
+        //Allow users to favorite and unfavorite
+        favoriteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AccessData.retrieveUserObject(new AccessData.UserObjectCallback() {
+                    @Override
+                    public void onDataLoaded(User user) {
+                        if (user.getUserFavorites().contains(restaurantName)) {
+                            favoriteButton.setImageTintList(redTint);
+                            AccessData.removeFavoriteForUser(user, restaurantName);
+                            showToast("Removed from Favorites");
+                        } else {
+                            favoriteButton.setImageTintList(yellowTint);
+                            AccessData.addFavoriteForUser(user, restaurantName);
+                            showToast("Added to Favorites");
+                        }
+                    }
+                });
             }
         });
     }

@@ -187,4 +187,32 @@ public class AccessData {
         user.addUserReview(review);
         userRef.setValue(user);
     }
+
+//    public static void handleFavoriteForUser(User user, Restaurant restaurant) {
+//        FirebaseDatabase database = FirebaseDatabase.getInstance();
+//        DatabaseReference userRef = database.getReference("userInfo").child(user.getUserKey());
+//
+//        if (user.getUserFavorites().contains(restaurant)) {
+//            user.removeUserFavorite(restaurant);
+//        } else {
+//            user.addUserFavorite(restaurant);
+//        }
+//        userRef.setValue(user);
+//    }
+
+    public static void addFavoriteForUser(User user, String restaurantName) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userRef = database.getReference("userInfo").child(user.getUserKey());
+
+        user.addUserFavorite(restaurantName);
+        userRef.setValue(user);
+    }
+
+    public static void removeFavoriteForUser(User user, String restaurantName) {
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference userRef = database.getReference("userInfo").child(user.getUserKey());
+
+        user.removeUserFavorite(restaurantName);
+        userRef.setValue(user);
+    }
 }

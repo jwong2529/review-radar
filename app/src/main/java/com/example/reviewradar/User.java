@@ -13,7 +13,7 @@ public class User {
 
 
     private List<RestaurantReview> userReviews;
-    private List<Restaurant> userFavorites;
+    private List<String> userFavorites;
 
 
     //Firebase needs no argument constructor
@@ -91,20 +91,23 @@ public class User {
     }
 
 
-    public List<Restaurant> getUserFavorites() {
+    public List<String> getUserFavorites() {
         return userFavorites;
     }
 
 
-    public void setUserFavorites(List<Restaurant> userFavorites) {
+    public void setUserFavorites(List<String> userFavorites) {
         this.userFavorites = userFavorites;
     }
 
 
-    public void addUserFavorite(Restaurant restaurant) {
-        userFavorites.add(restaurant);
+    public void addUserFavorite(String restaurantName) {
+        userFavorites.add(restaurantName);
     }
 
+    public void removeUserFavorite(String restaurantName) {
+        userFavorites.remove(restaurantName);
+    }
 
     // toString() method for debugging
     @Override

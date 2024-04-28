@@ -13,7 +13,7 @@ import java.util.List;
 
 public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.FavoritesViewHolder> {
 
-    private List<Restaurant> restaurants;
+    private List<String> restaurants;
 
     @NonNull
     @Override
@@ -24,8 +24,8 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
 
     @Override
     public void onBindViewHolder(@NonNull FavoritesAdapter.FavoritesViewHolder holder, int position) {
-        Restaurant restaurant = restaurants.get(position);
-        holder.bind(restaurant);
+        String restaurantName = restaurants.get(position);
+        holder.bind(restaurantName);
     }
 
     @Override
@@ -44,7 +44,8 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
             ratingRB = itemView.findViewById(R.id.favRestaurantRating);
         }
 
-        public void bind(Restaurant restaurant) {
+        public void bind(String restaurantName) {
+            Restaurant restaurant = AccessData.restaurantMap.get(restaurantName);
             restaurantNameTV.setText(restaurant.getName());
             ratingRB.setRating(restaurant.getAverageRating());
         }
