@@ -114,7 +114,7 @@ public class CreateAccount extends AppCompatActivity {
                     // Set the user object as the value of the new user node
                     User user = new User(userId, username, email, password);
 
-                    mDatabase.getReference("users").child(userId).setValue(user);
+                    mDatabase.getReference("userInfo").child(userId).setValue(user);
 
                     Toast.makeText(CreateAccount.this, "Account created.", Toast.LENGTH_SHORT).show();
                     Intent intent = new Intent(CreateAccount.this, LoginUser.class);

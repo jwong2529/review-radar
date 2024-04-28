@@ -15,17 +15,11 @@ public class User {
     private List<RestaurantReview> userReviews;
     private List<Restaurant> userFavorites;
 
-    //TESTING
-    private String test;
-
 
     //Firebase needs no argument constructor
     public User() {
         this.userReviews = new ArrayList<>();
         this.userFavorites = new ArrayList<>();
-
-        //TESTING
-        this.test = "";
     }
 
 
@@ -38,9 +32,6 @@ public class User {
 
         this.userReviews = new ArrayList<>();
         this.userFavorites = new ArrayList<>();
-
-        //TESTING
-        this.test = "";
     }
 
 
@@ -112,16 +103,6 @@ public class User {
 
     public void addUserFavorite(Restaurant restaurant) {
         userFavorites.add(restaurant);
-    }
-
-    //TESTING
-    public String getTest() {
-        return test;
-    }
-
-
-    public void setTest(String test) {
-        this.test = test;
     }
 
 

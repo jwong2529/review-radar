@@ -28,10 +28,6 @@ public class AccessData {
     public AccessData(String restaurantName) {
         this.restaurantName = restaurantName;
         this.doesRestaurantExist = false;
-        this.restaurant = new Restaurant(null, null, null);
-
-        //testing
-//        this.restaurantMap = new HashMap<>();
     }
 
     public boolean lookForRestaurant() {
@@ -39,7 +35,7 @@ public class AccessData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference restaurantRef = database.getReference(restaurantName);
 
-        restaurantRef.addValueEventListener(new ValueEventListener() {
+        restaurantRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -62,7 +58,7 @@ public class AccessData {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference restaurantRef = database.getReference(restaurantName);
 
-        restaurantRef.addValueEventListener(new ValueEventListener() {
+        restaurantRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
@@ -105,10 +101,8 @@ public class AccessData {
                 // Iterate through the dataSnapshot to retrieve restaurant data
                 for (DataSnapshot restaurantSnapshot : dataSnapshot.getChildren()) {
                     String restaurantName = restaurantSnapshot.getKey();
-                    if (!restaurantName.equals("users") && !restaurantName.equals("reviews")) {
+                    if (!restaurantName.equals("userInfo")) {
                         Restaurant restaurant = restaurantSnapshot.getValue(Restaurant.class);
-//                        restaurantMap.put(restaurantName, restaurant);
-//                        RestaurantData.restaurantMap.put(restaurantName, restaurant);
                         AccessData.restaurantMap.put(restaurantName, restaurant);
                     }
 
@@ -162,9 +156,9 @@ public class AccessData {
         FirebaseUser fbUser = mAuth.getCurrentUser();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference userRef = database.getReference("users").child(fbUser.getUid());
+        DatabaseReference userRef = database.getReference("userInfo").child(fbUser.getUid());
 
-        userRef.addValueEventListener(new ValueEventListener() {
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 User user;
@@ -189,11 +183,8 @@ public class AccessData {
 
     public static void addReviewToUser(User user, RestaurantReview review) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference userRef = database.getReference("users").child(user.getUserKey());
-//        user.addUserReview(review);
-//        userRef.setValue(user);
-        user.setTest(review.getComment());
+        DatabaseReference userRef = database.getReference("userInfo").child(user.getUserKey());
+        user.addUserReview(review);
         userRef.setValue(user);
-
     }
 }

@@ -1,28 +1,29 @@
 package com.example.reviewradar;
 
 public class RestaurantReview {
-    private User user;
+
+    String reviewerName;
     private float rating;
     private String comment;
     private String imageUrl;
 
     public RestaurantReview() {
-
     }
 
-    public RestaurantReview(User user, float rating, String comment) {
-        this.user = user;
+    public RestaurantReview(String reviewerName, float rating, String comment) {
+//        this.user = user;
+        this.reviewerName = reviewerName;
         this.rating = rating;
         this.comment = comment;
         this.imageUrl = "";
     }
 
-    public User getUser() {
-        return user;
+    public String getReviewerName() {
+        return reviewerName;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setReviewerName(String reviewerName) {
+        this.reviewerName = reviewerName;
     }
 
     public float getRating() {
