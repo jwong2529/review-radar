@@ -22,10 +22,10 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginUser"
+            android:name=".CreateAccount"
             android:exported="false"/>
         <activity
-            android:name=".CreateAccount"
+            android:name=".LoginUser"
             android:windowSoftInputMode="adjustNothing"
             android:exported="true">
             <intent-filter>

@@ -1,9 +1,11 @@
 package com.example.reviewradar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -18,10 +20,11 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
 
     private List<Restaurant> restaurantList;
 
+    private Context context;
 
-    public RestaurantAdapter(List<Restaurant> restaurantList) {
+    public RestaurantAdapter(List<Restaurant> restaurantList, Context context) {
         this.restaurantList = restaurantList;
-
+        this.context = context;
     }
 
     public void filterRestaurants(List<Restaurant> filteredList) {
@@ -40,6 +43,12 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
     public void onBindViewHolder(@NonNull RestaurantViewHolder holder, int position) {
 
         Restaurant restaurant = restaurantList.get(position);
+
+        //Displaying restaurant images
+        String imagePath = restaurant.getImageUrls().get(0);
+        int resourceId = context.getResources().getIdentifier(imagePath, "drawable", context.getPackageName());
+        holder.restaurantImageIV.setImageResource(resourceId);
+
         holder.bind(restaurant);
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -62,18 +71,19 @@ public class RestaurantAdapter extends RecyclerView.Adapter<RestaurantAdapter.Re
         private TextView restaurantNameTextView;
         private TextView cuisineTypeTextView;
         private RatingBar restaurantPostRB;
+        private ImageView restaurantImageIV;
 
         public RestaurantViewHolder(@NonNull View itemView) {
             super(itemView);
             restaurantNameTextView = itemView.findViewById(R.id.restaurant_name);
             cuisineTypeTextView = itemView.findViewById(R.id.restaurant_cuisine_type);
             restaurantPostRB = itemView.findViewById(R.id.restaurantPostRating);
+            restaurantImageIV = itemView.findViewById(R.id.restaurant_image);
         }
 
         public void bind(Restaurant restaurant) {
             restaurantNameTextView.setText(restaurant.getName());
             cuisineTypeTextView.setText(restaurant.getCuisineType());
-
             restaurantPostRB.setRating(restaurant.getAverageRating());
         }
     }

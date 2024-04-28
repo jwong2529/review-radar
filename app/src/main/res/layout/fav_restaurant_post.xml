@@ -25,7 +25,7 @@
                 android:layout_height="60dp"
                 android:layout_weight="1"
                 android:scaleType="centerCrop"
-                app:srcCompat="@drawable/sample_image" />
+                app:srcCompat="@drawable/mcdonalds" />
 
             <TextView
                 android:id="@+id/favRestaurantName"

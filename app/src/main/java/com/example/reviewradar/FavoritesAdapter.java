@@ -1,8 +1,10 @@
 package com.example.reviewradar;
 
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -15,6 +17,13 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
 
     private List<String> restaurants;
 
+    private Context context;
+
+    public FavoritesAdapter(List<String> restaurants, Context context) {
+        this.restaurants = restaurants;
+        this.context = context;
+    }
+
     @NonNull
     @Override
     public FavoritesAdapter.FavoritesViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -25,6 +34,12 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
     @Override
     public void onBindViewHolder(@NonNull FavoritesAdapter.FavoritesViewHolder holder, int position) {
         String restaurantName = restaurants.get(position);
+        Restaurant restaurant = AccessData.restaurantMap.get(restaurantName);
+
+        String imagePath = restaurant.getImageUrls().get(0);
+        int resourceId = context.getResources().getIdentifier(imagePath, "drawable", context.getPackageName());
+        holder.restaurantImageIV.setImageResource(resourceId);
+
         holder.bind(restaurantName);
     }
 
@@ -38,10 +53,13 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         private TextView restaurantNameTV;
         private RatingBar ratingRB;
 
+        private ImageView restaurantImageIV;
+
         public FavoritesViewHolder(@NonNull View itemView) {
             super(itemView);
             restaurantNameTV = itemView.findViewById(R.id.favRestaurantName);
             ratingRB = itemView.findViewById(R.id.favRestaurantRating);
+            restaurantImageIV = itemView.findViewById(R.id.favRestaurantImage);
         }
 
         public void bind(String restaurantName) {

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -41,6 +42,15 @@ public class LoginUser extends AppCompatActivity {
                 String passwordText = loginPagePassword.getText().toString();
 
                 signIn(emailText, passwordText);
+            }
+        });
+
+        TextView signUpTV = findViewById(R.id.loginSignUp);
+        signUpTV.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginUser.this, CreateAccount.class);
+                LoginUser.this.startActivity(intent);
             }
         });
     }

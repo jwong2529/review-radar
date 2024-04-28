@@ -105,7 +105,7 @@ public class MainActivity extends AppCompatActivity {
                 recyclerView = findViewById(R.id.recycler_view);
                 recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                 recyclerView.setHasFixedSize(true); //new
-                adapter = new RestaurantAdapter(restaurantList);
+                adapter = new RestaurantAdapter(restaurantList, MainActivity.this);
                 recyclerView.setAdapter(adapter);
 
                 //new
@@ -148,12 +148,19 @@ public class MainActivity extends AppCompatActivity {
                 String restaurantName = parts[0];
                 String cuisineType = parts[1];
                 String address = parts[2];
+                String imagePath = parts[3];
+
+                //delete double quotes at front and end of address
+                address = address.replaceAll("^\"|\"$", "");
+                //rewrite imagePath to delete .jpg part
+                imagePath = imagePath.substring(0, imagePath.lastIndexOf('.'));
 
                 //Check if restaurant already exists in database, add if not
                 AccessData resData = new AccessData(restaurantName);
 
                 if (!AccessData.restaurantMap.containsKey(restaurantName)) {
                     Restaurant restaurant = new Restaurant(restaurantName, cuisineType, address);
+                    restaurant.addImageUrl(imagePath);
                     resData.updateRestaurant(restaurantName, restaurant);
                 }
 

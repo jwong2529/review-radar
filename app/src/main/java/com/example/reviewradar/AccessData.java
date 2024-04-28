@@ -87,7 +87,6 @@ public class AccessData {
     }
 
     public static void retrieveAllRestaurants(RestaurantDataCallback callback) {
-//        Map<String, Restaurant> restaurantMap = new HashMap<>();
         AccessData.restaurantMap = new HashMap<>();
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -116,8 +115,6 @@ public class AccessData {
 
             }
         });
-//        return restaurantMap;
-
     }
 
     //idk what this is
@@ -187,18 +184,6 @@ public class AccessData {
         user.addUserReview(review);
         userRef.setValue(user);
     }
-
-//    public static void handleFavoriteForUser(User user, Restaurant restaurant) {
-//        FirebaseDatabase database = FirebaseDatabase.getInstance();
-//        DatabaseReference userRef = database.getReference("userInfo").child(user.getUserKey());
-//
-//        if (user.getUserFavorites().contains(restaurant)) {
-//            user.removeUserFavorite(restaurant);
-//        } else {
-//            user.addUserFavorite(restaurant);
-//        }
-//        userRef.setValue(user);
-//    }
 
     public static void addFavoriteForUser(User user, String restaurantName) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();

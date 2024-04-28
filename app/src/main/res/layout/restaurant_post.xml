@@ -22,13 +22,24 @@
             android:textSize="18sp"
             android:textStyle="bold"/>
 
+        <View
+            android:id="@+id/view4"
+            android:layout_width="wrap_content"
+            android:layout_height="10dp" />
+
         <ImageView
             android:id="@+id/restaurant_image"
             android:layout_width="match_parent"
             android:layout_height="242dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            app:srcCompat="@drawable/sample_image" />
+            android:scaleType="centerCrop"
+            app:srcCompat="@drawable/mcdonalds" />
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="wrap_content"
+            android:layout_height="10dp" />
 
         <TextView
             android:id="@+id/restaurant_cuisine_type"

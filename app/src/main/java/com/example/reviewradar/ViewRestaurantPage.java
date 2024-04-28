@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -118,16 +119,21 @@ public class ViewRestaurantPage extends AppCompatActivity {
                 TextView restaurantNameTV = findViewById(R.id.restaurantPageTitle);
                 TextView cuisineTypeTV = findViewById(R.id.restaurantPageCuisineType);
                 TextView addressTV = findViewById(R.id.restaurantPageAddress);
+                ImageView restaurantImageIV = findViewById(R.id.restaurantPageImage);
 
                 String cuisineType = restaurant.getCuisineType();
                 String address = restaurant.getAddress();
-
+                String imagePath = restaurant.getImageUrls().get(0);
 
                 restaurantNameTV.setText(restaurantName);
                 cuisineTypeTV.setText(cuisineType);
                 addressTV.setText(address);
 
                 setAverageRating(restaurant);
+
+                //display image
+                int resourceId = getResources().getIdentifier(imagePath, "drawable", getPackageName());
+                restaurantImageIV.setImageResource(resourceId);
             }
         });
     }

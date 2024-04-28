@@ -24,7 +24,7 @@
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/sample_image" />
+                app:srcCompat="@drawable/mcdonalds" />
 
             <TextView
                 android:id="@+id/restaurantPageTitle"
