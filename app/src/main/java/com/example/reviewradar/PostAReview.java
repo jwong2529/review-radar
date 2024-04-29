@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -18,13 +19,15 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 public class PostAReview extends AppCompatActivity {
-
+    MediaPlayer mediaPlayer;
     String restaurantName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_areview);
+        mediaPlayer = MediaPlayer.create(this,R.raw.postsound);
+
 
         //Retrieve restaurant name extra from Intent
         restaurantName = getIntent().getStringExtra("restaurantName");
@@ -51,6 +54,7 @@ public class PostAReview extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 handleReview();
+                mediaPlayer.start();
             }
         });
 

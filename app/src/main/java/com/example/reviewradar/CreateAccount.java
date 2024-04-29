@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 
@@ -35,7 +36,7 @@ import java.util.List;
 
 public class CreateAccount extends AppCompatActivity {
 
-
+    MediaPlayer mediaPlayer;
     //Firebase authentication
     private FirebaseAuth mAuth;
 
@@ -50,9 +51,10 @@ public class CreateAccount extends AppCompatActivity {
 
 
         setContentView(R.layout.activity_create_account_old);
+        mediaPlayer = MediaPlayer.create(this,R.raw.welcome);
 
 
-         mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
          mDatabase = FirebaseDatabase.getInstance();
 
          //onClickListeners stuff
@@ -88,6 +90,7 @@ public class CreateAccount extends AppCompatActivity {
          loginButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
+                 mediaPlayer.start();
                  Intent intent = new Intent(v.getContext(), LoginUser.class);
                  v.getContext().startActivity(intent);
              }

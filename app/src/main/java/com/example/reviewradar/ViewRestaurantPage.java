@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,7 +24,7 @@ import java.util.Collections;
 import java.util.List;
 
 public class ViewRestaurantPage extends AppCompatActivity {
-
+    MediaPlayer mediaPlayer;
     private RecyclerView recyclerView;
     private ReviewAdapter adapter;
 
@@ -54,6 +55,8 @@ public class ViewRestaurantPage extends AppCompatActivity {
 
         adapter = new ReviewAdapter(restaurantReviews);
         recyclerView.setAdapter(adapter);
+
+        mediaPlayer = MediaPlayer.create(this,R.raw.favoritedsound);
 
         FloatingActionButton fab = findViewById(R.id.floatingActionButton);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -92,6 +95,7 @@ public class ViewRestaurantPage extends AppCompatActivity {
         favoriteButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mediaPlayer.start();
                 AccessData.retrieveUserObject(new AccessData.UserObjectCallback() {
                     @Override
                     public void onDataLoaded(User user) {
@@ -106,6 +110,8 @@ public class ViewRestaurantPage extends AppCompatActivity {
                         }
                     }
                 });
+
+
             }
         });
     }
