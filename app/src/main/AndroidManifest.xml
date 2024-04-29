@@ -26,6 +26,8 @@
             android:exported="false"/>
         <activity android:name=".Profile"
             android:exported="false"/>
+        <activity android:name=".ViewFavoritesPage"
+            android:exported="false"/>
         <activity
             android:name=".LoginUser"
             android:windowSoftInputMode="adjustNothing"

@@ -74,10 +74,6 @@ public class CreateAccount extends AppCompatActivity {
                      if (!emailText.isEmpty()) {
                          if (passwordText.length() >= 6) {
                              createAccount(usernameText, emailText, passwordText);
-
-//                             Toast.makeText(CreateAccount.this, "Account created.", Toast.LENGTH_SHORT).show();
-//                             Intent intent = new Intent(v.getContext(), LoginUser.class);
-//                             v.getContext().startActivity(intent);
                          } else {
                              Toast.makeText(CreateAccount.this, "Password must be at least 6 characters long.", Toast.LENGTH_SHORT).show();
                          }
@@ -125,12 +121,10 @@ public class CreateAccount extends AppCompatActivity {
 
                 } else {
                     // Error creating user in authentication database
-                    Toast.makeText(CreateAccount.this, "Error creating user.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateAccount.this, "Error creating user. Please enter a valid email address.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
     }
-
-
 }
