@@ -6,33 +6,19 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
-import android.util.Log;
-import android.view.View;
-import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
-import android.content.Intent;
-import android.os.Bundle;
 import androidx.annotation.NonNull;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.database.ValueEventListener;
 
 import android.view.MenuItem;
 
@@ -102,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     restaurantList.add(restaurant);
                 }
 
-                recyclerView = findViewById(R.id.recycler_view);
+                recyclerView = findViewById(R.id.favRecycler);
                 recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                 recyclerView.setHasFixedSize(true); //new
                 adapter = new RestaurantAdapter(restaurantList, MainActivity.this);

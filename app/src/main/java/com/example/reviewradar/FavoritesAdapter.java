@@ -1,6 +1,7 @@
 package com.example.reviewradar;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,6 +42,15 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         holder.restaurantImageIV.setImageResource(resourceId);
 
         holder.bind(restaurantName);
+
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(v.getContext(), ViewRestaurantPage.class);
+                intent.putExtra("restaurantName", restaurantName);
+                v.getContext().startActivity(intent);
+            }
+        });
     }
 
     @Override

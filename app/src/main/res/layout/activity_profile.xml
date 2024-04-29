@@ -23,6 +23,46 @@
         android:layout_above="@id/card_view"
         android:padding="28dp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/floatingActionButtonProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                app:backgroundTint="@android:color/white"
+                app:fabCustomSize="30dp"
+                app:fabSize="auto"
+                app:layout_constraintBottom_toTopOf="@+id/restaurantPageTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.019"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/restaurantPageImage"
+                app:layout_constraintVertical_bias="0.142"
+                app:maxImageSize="25dp"
+                app:srcCompat="@android:drawable/ic_menu_revert"
+                app:tint="@color/black" />
+
+            <View
+                android:id="@+id/view3"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/logoutbtn"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:layout_gravity="right"
+                android:text="Log Out"
+                android:textSize="15dp"
+                app:backgroundTint="#ED6666"
+                app:cornerRadius="10dp" />
+        </LinearLayout>
+
         <ImageView
             android:layout_width="278dp"
             android:layout_height="124dp"
@@ -30,13 +70,14 @@
             android:src="@drawable/pfp" />
 
         <TextView
+            android:id="@+id/profileUserName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Hello, User!"
-            android:textStyle="bold"
             android:fontFamily="sans-serif-medium"
+            android:text="Hello, User!"
+            android:textColor="@color/black"
             android:textSize="32dp"
-            android:textColor="@color/black"/>
+            android:textStyle="bold" />
 
     </LinearLayout>
 
@@ -56,52 +97,33 @@
             android:padding="28dp">
 
             <com.google.android.material.button.MaterialButton
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:id="@+id/modebtn"
-                android:text="Light/Dark Mode"
-                app:cornerRadius="10dp"/>
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:id="@+id/createButton"
-                android:text="Preferences"
-                app:cornerRadius="10dp"/>
-
-
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
                 android:id="@+id/favoritesbtn"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:text="Favorites"
-                app:cornerRadius="10dp"/>
+                app:cornerRadius="10dp" />
 
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="30dp" />
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reviews"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="20dp"/>
 
-            <com.google.android.material.button.MaterialButton
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/profileReviewRecycler"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:id="@+id/logoutbtn"
-                android:text="Log Out"
-                app:cornerRadius="10dp"/>
-
-            <View
-                android:layout_width="wrap_content"
-                android:layout_height="10dp"/>
-
+                android:layout_height="wrap_content" />
 
 
         </LinearLayout>

@@ -9,22 +9,42 @@
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="73dp">
+        tools:layout_editor_absoluteX="64dp"
+        tools:layout_editor_absoluteY="217dp">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:padding="10dp">
 
-            <androidx.constraintlayout.widget.ConstraintLayout
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/favPageBackButton"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"/>
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                app:backgroundTint="@android:color/white"
+                app:fabCustomSize="30dp"
+                app:fabSize="auto"
+                app:layout_constraintBottom_toTopOf="@+id/restaurantPageTitle"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.019"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/restaurantPageImage"
+                app:layout_constraintVertical_bias="0.142"
+                app:maxImageSize="25dp"
+                app:srcCompat="@android:drawable/ic_menu_revert"
+                app:tint="@color/black" />
+
+            <View
+                android:id="@+id/view6"
+                android:layout_width="match_parent"
+                android:layout_height="20dp" />
 
             <TextView
                 android:id="@+id/favoritesPageTitle"
-                android:layout_width="151dp"
+                android:layout_width="wrap_content"
                 android:layout_height="34dp"
                 android:fontFamily="sans-serif-black"
                 android:text="Favorites"
@@ -32,22 +52,13 @@
                 android:textSize="20sp" />
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/recycler_view"
+                android:id="@+id/favRecycler"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="90dp"/>
+                android:layout_marginBottom="90dp" />
 
 
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
-
-    <com.google.android.material.bottomnavigation.BottomNavigationView
-        android:id="@+id/bottomNavigationView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:menu="@menu/bottom_nav_menu" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
