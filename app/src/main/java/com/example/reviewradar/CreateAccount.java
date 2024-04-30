@@ -62,6 +62,7 @@ public class CreateAccount extends AppCompatActivity {
          createAccountButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
+                 mediaPlayer.start();
                  EditText createAccountUsername = findViewById(R.id.createAccountUsername);
                  EditText createAccountEmail = findViewById(R.id.createAccountEmail);
                  EditText createAccountPassword = findViewById(R.id.createAccountPassword);
@@ -90,9 +91,9 @@ public class CreateAccount extends AppCompatActivity {
          loginButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 mediaPlayer.start();
                  Intent intent = new Intent(v.getContext(), LoginUser.class);
                  v.getContext().startActivity(intent);
+
              }
          });
     }

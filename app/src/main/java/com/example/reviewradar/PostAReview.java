@@ -53,8 +53,8 @@ public class PostAReview extends AppCompatActivity {
         postReviewPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                handleReview();
                 mediaPlayer.start();
+                handleReview();
             }
         });
 
