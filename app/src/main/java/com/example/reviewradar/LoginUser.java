@@ -2,6 +2,7 @@ package com.example.reviewradar;
 
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,12 +23,16 @@ public class LoginUser extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
 
+    MediaPlayer loginSound;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //check if the user is logged in
         setContentView(R.layout.activity_login_user);
+
+        loginSound = MediaPlayer.create(this, R.raw.loginsound);
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
@@ -36,6 +41,7 @@ public class LoginUser extends AppCompatActivity {
         loginPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loginSound.start();
                 EditText loginPageEmail = findViewById(R.id.loginPageEmail);
                 EditText loginPagePassword = findViewById(R.id.loginPagePassword);
                 String emailText = loginPageEmail.getText().toString();

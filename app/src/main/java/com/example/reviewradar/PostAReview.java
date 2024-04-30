@@ -19,14 +19,16 @@ import com.google.firebase.database.FirebaseDatabase;
 
 
 public class PostAReview extends AppCompatActivity {
-    MediaPlayer mediaPlayer;
+    MediaPlayer postSound;
+    MediaPlayer trashSound;
     String restaurantName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_post_areview);
-        mediaPlayer = MediaPlayer.create(this,R.raw.postsound);
+        postSound = MediaPlayer.create(this,R.raw.postsound);
+        trashSound = MediaPlayer.create(this, R.raw.trash);
 
 
         //Retrieve restaurant name extra from Intent
@@ -44,6 +46,7 @@ public class PostAReview extends AppCompatActivity {
         cancelReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                trashSound.start();
                 Intent intent = new Intent(v.getContext(), MainActivity.class);
                 v.getContext().startActivity(intent);
             }
@@ -53,7 +56,7 @@ public class PostAReview extends AppCompatActivity {
         postReviewPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mediaPlayer.start();
+                postSound.start();
                 handleReview();
             }
         });

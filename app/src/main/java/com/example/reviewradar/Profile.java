@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -22,10 +23,14 @@ public class Profile extends AppCompatActivity {
     private RecyclerView recyclerView;
     private ReviewProfileAdapter adapter;
 
+    MediaPlayer favoritePageSound;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+        favoritePageSound = MediaPlayer.create(this, R.raw.favoritepage);
 
         // showing user reviews
         recyclerView = findViewById(R.id.profileReviewRecycler);
@@ -49,6 +54,7 @@ public class Profile extends AppCompatActivity {
         favoritesButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                favoritePageSound.start();
                 Intent intent = new Intent(v.getContext(), ViewFavoritesPage.class);
                 v.getContext().startActivity(intent);
             }
