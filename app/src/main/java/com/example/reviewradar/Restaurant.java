@@ -80,10 +80,12 @@ public class Restaurant {
         float averageRating = 0;
         for (int i = 0; i < reviewsSize; i++) {
             float rating = restaurantReviews.get(i).getRating();
+            if (rating < 0 || rating > 5) {
+                throw new IllegalArgumentException("Invalid review rating");
+            }
             averageRating += rating;
         }
 
-        averageRating = averageRating / reviewsSize;
         //round the average rating to nearest 0.5 increment
         float roundedAverageRating = (float)Math.round(averageRating * 2)/2.0f;
         return roundedAverageRating;

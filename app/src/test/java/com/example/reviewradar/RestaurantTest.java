@@ -41,8 +41,18 @@ public class RestaurantTest {
         restaurant.addReview(new RestaurantReview("testRestaurantName3", null, 3.2f, null)); // Average would be 3.2
         restaurant.addReview(new RestaurantReview("testRestaurantName3", null, 4.6f, null));; // Average would be 4.6
         float averageRating = restaurant.getAverageRating();
-        assertEquals(4.0f, averageRating,0); // Rounded averages should be 3.5
+        assertEquals(4.0f, averageRating,0); // Rounded averages should be 4.0
     }
 
+    @Test
+    public void testGetAverageRating_ThrowIllegalArgumentException() {
+        Restaurant restaurant = new Restaurant();
+        assertThrows(IllegalArgumentException.class,
+                () -> {
+                    restaurant.addReview(new RestaurantReview("testRestaurantName4", null, -1, null));
+                    float averageRating = restaurant.getAverageRating();
 
+
+                });
+    }
 }
