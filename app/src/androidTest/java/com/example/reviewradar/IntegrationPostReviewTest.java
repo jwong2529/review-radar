@@ -19,7 +19,7 @@ import static androidx.test.espresso.matcher.ViewMatchers.withText;
 public class  IntegrationPostReviewTest {
 
     @Rule
-    public ActivityScenarioRule<PostAReview> activityScenarioRule = new ActivityScenarioRule<>(PostAReview.class);
+    public ActivityScenarioRule<PostARestaurantReview> activityScenarioRule = new ActivityScenarioRule<>(PostARestaurantReview.class);
 
     @Test
     public void postReviewProcess() {

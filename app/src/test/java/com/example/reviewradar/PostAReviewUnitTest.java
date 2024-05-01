@@ -14,11 +14,11 @@ import static org.junit.Assert.*;
 @RunWith(RobolectricTestRunner.class)
 @Config(manifest = Config.NONE, sdk = 30)
 public class PostAReviewUnitTest {
-    private PostAReview postAReview;
+    private PostARestaurantReview postAReview;
 
     @Before
     public void setUp() {
-        postAReview = Robolectric.buildActivity(PostAReview.class).create().get();
+        postAReview = Robolectric.buildActivity(PostARestaurantReview.class).create().get();
         AccessData.restaurantMap = new HashMap<>();
     }
 
