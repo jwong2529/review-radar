@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 
 
@@ -17,25 +18,15 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.button.MaterialButton;
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-import android.util.Log;
 
+public class CreateDinerAccount extends AppCompatActivity {
 
-import java.util.List;
-
-
-
-
-public class CreateAccount extends AppCompatActivity {
-
-
+    MediaPlayer mediaPlayer;
     //Firebase authentication
     private FirebaseAuth mAuth;
 
@@ -49,10 +40,11 @@ public class CreateAccount extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
 
-        setContentView(R.layout.activity_create_account_old);
+        setContentView(R.layout.create_diner_account_page);
+        mediaPlayer = MediaPlayer.create(this,R.raw.welcome);
 
 
-         mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
          mDatabase = FirebaseDatabase.getInstance();
 
          //onClickListeners stuff
@@ -60,6 +52,7 @@ public class CreateAccount extends AppCompatActivity {
          createAccountButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
+                 mediaPlayer.start();
                  EditText createAccountUsername = findViewById(R.id.createAccountUsername);
                  EditText createAccountEmail = findViewById(R.id.createAccountEmail);
                  EditText createAccountPassword = findViewById(R.id.createAccountPassword);
@@ -72,18 +65,14 @@ public class CreateAccount extends AppCompatActivity {
                      if (!emailText.isEmpty()) {
                          if (passwordText.length() >= 6) {
                              createAccount(usernameText, emailText, passwordText);
-
-//                             Toast.makeText(CreateAccount.this, "Account created.", Toast.LENGTH_SHORT).show();
-//                             Intent intent = new Intent(v.getContext(), LoginUser.class);
-//                             v.getContext().startActivity(intent);
                          } else {
-                             Toast.makeText(CreateAccount.this, "Password must be at least 6 characters long.", Toast.LENGTH_SHORT).show();
+                             Toast.makeText(CreateDinerAccount.this, "Password must be at least 6 characters long.", Toast.LENGTH_SHORT).show();
                          }
                      } else {
-                         Toast.makeText(CreateAccount.this, "Please enter an email.", Toast.LENGTH_SHORT).show();
+                         Toast.makeText(CreateDinerAccount.this, "Please enter an email.", Toast.LENGTH_SHORT).show();
                      }
                  } else {
-                     Toast.makeText(CreateAccount.this, "Please enter a name.", Toast.LENGTH_SHORT).show();
+                     Toast.makeText(CreateDinerAccount.this, "Please enter a name.", Toast.LENGTH_SHORT).show();
                  }
              }
          });
@@ -92,8 +81,9 @@ public class CreateAccount extends AppCompatActivity {
          loginButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 Intent intent = new Intent(v.getContext(), LoginUser.class);
+                 Intent intent = new Intent(v.getContext(), LoginDiner.class);
                  v.getContext().startActivity(intent);
+
              }
          });
     }
@@ -109,25 +99,22 @@ public class CreateAccount extends AppCompatActivity {
                     // User created in authentication database
                     FirebaseUser firebaseUser = mAuth.getCurrentUser();
                     // Generate a unique key for the new user node
-//                    String userId = mDatabase.getReference("users").push().getKey();
                     String userId = firebaseUser.getUid();
                     // Set the user object as the value of the new user node
-                    User user = new User(userId, username, email, password);
+                    Diner diner = new Diner(userId, username, email, password);
 
-                    mDatabase.getReference("userInfo").child(userId).setValue(user);
+                    mDatabase.getReference("userInfo").child(userId).setValue(diner);
 
-                    Toast.makeText(CreateAccount.this, "Account created.", Toast.LENGTH_SHORT).show();
-                    Intent intent = new Intent(CreateAccount.this, LoginUser.class);
-                    CreateAccount.this.startActivity(intent);
+                    Toast.makeText(CreateDinerAccount.this, "Account created.", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(CreateDinerAccount.this, LoginDiner.class);
+                    CreateDinerAccount.this.startActivity(intent);
 
                 } else {
                     // Error creating user in authentication database
-                    Toast.makeText(CreateAccount.this, "Error creating user.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(CreateDinerAccount.this, "Error creating user. Please enter a valid email address.", Toast.LENGTH_SHORT).show();
                 }
             }
         });
 
     }
-
-
 }

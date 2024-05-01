@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class User {
+public class Diner {
     private String userKey;
     private String username;
     private String email;
@@ -17,14 +17,14 @@ public class User {
 
 
     //Firebase needs no argument constructor
-    public User() {
+    public Diner() {
         this.userReviews = new ArrayList<>();
         this.userFavorites = new ArrayList<>();
     }
 
 
     // Constructor
-    public User(String userKey, String username, String email, String password) {
+    public Diner(String userKey, String username, String email, String password) {
         this.userKey = userKey;
         this.username = username;
         this.email = email;

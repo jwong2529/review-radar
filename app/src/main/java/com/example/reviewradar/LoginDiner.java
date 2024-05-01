@@ -2,6 +2,7 @@ package com.example.reviewradar;
 
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -18,16 +19,20 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 
 
-public class LoginUser extends AppCompatActivity {
+public class LoginDiner extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private FirebaseDatabase mDatabase;
+
+    MediaPlayer loginSound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         //check if the user is logged in
-        setContentView(R.layout.activity_login_user);
+        setContentView(R.layout.login_diner_page);
+
+        loginSound = MediaPlayer.create(this, R.raw.loginsound);
 
         mAuth = FirebaseAuth.getInstance();
         mDatabase = FirebaseDatabase.getInstance();
@@ -36,6 +41,7 @@ public class LoginUser extends AppCompatActivity {
         loginPageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                loginSound.start();
                 EditText loginPageEmail = findViewById(R.id.loginPageEmail);
                 EditText loginPagePassword = findViewById(R.id.loginPagePassword);
                 String emailText = loginPageEmail.getText().toString();
@@ -49,8 +55,8 @@ public class LoginUser extends AppCompatActivity {
         signUpTV.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(LoginUser.this, CreateAccount.class);
-                LoginUser.this.startActivity(intent);
+                Intent intent = new Intent(LoginDiner.this, CreateDinerAccount.class);
+                LoginDiner.this.startActivity(intent);
             }
         });
     }
@@ -64,14 +70,14 @@ public class LoginUser extends AppCompatActivity {
                 FirebaseUser user = mAuth.getCurrentUser();
                 //find user object and make it static in accessdata
 
-                Toast.makeText(LoginUser.this, "Login successful.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginDiner.this, "Login successful.", Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(LoginUser.this, MainActivity.class);
-                LoginUser.this.startActivity(intent);
+                Intent intent = new Intent(LoginDiner.this, ViewHomePage.class);
+                LoginDiner.this.startActivity(intent);
 
             } else {
                 //Login failed
-                Toast.makeText(LoginUser.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(LoginDiner.this, "Authentication failed.", Toast.LENGTH_SHORT).show();
             }
         });
     }
