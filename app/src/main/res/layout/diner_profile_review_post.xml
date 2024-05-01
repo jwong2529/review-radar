@@ -19,14 +19,8 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:srcCompat="@drawable/profile_icon" />
-
             <TextView
-                android:id="@+id/reviewPostUsername"
+                android:id="@+id/profileReviewRestaurant"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -36,7 +30,7 @@
         </LinearLayout>
 
         <RatingBar
-            android:id="@+id/reviewPostRating"
+            android:id="@+id/profileReviewRating"
             style="?android:attr/ratingBarStyleSmall"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -46,13 +40,11 @@
             android:rating="4" />
 
         <TextView
-            android:id="@+id/reviewPostReview"
+            android:id="@+id/profileReviewDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Review"
             android:textSize="12sp" />
 
-
-        <!-- Add ImageView for image, and other views as needed -->
     </LinearLayout>
 </androidx.cardview.widget.CardView>

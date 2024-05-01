@@ -27,8 +27,8 @@ public class ViewFavoritesPage extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         AccessData.retrieveUserObject(new AccessData.UserObjectCallback() {
             @Override
-            public void onDataLoaded(User user) {
-                List<String> userFavList = user.getUserFavorites();
+            public void onDataLoaded(Diner diner) {
+                List<String> userFavList = diner.getUserFavorites();
                 Collections.reverse(userFavList);
                 adapter = new FavoritesAdapter(userFavList, ViewFavoritesPage.this);
                 recyclerView.setAdapter(adapter);
@@ -39,7 +39,7 @@ public class ViewFavoritesPage extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), Profile.class);
+                Intent intent = new Intent(v.getContext(), ViewDinerProfilePage.class);
                 v.getContext().startActivity(intent);
             }
         });

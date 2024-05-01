@@ -13,23 +13,23 @@
         android:theme="@style/Theme.ReviewRadar"
         tools:targetApi="31">
         <activity
-            android:name=".PostAReview"
+            android:name=".PostARestaurantReview"
             android:exported="false" />
         <activity
             android:name=".ViewRestaurantPage"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".ViewHomePage"
             android:exported="false" />
         <activity
-            android:name=".CreateAccount"
+            android:name=".CreateDinerAccount"
             android:exported="false"/>
-        <activity android:name=".Profile"
+        <activity android:name=".ViewDinerProfilePage"
             android:exported="false"/>
         <activity android:name=".ViewFavoritesPage"
             android:exported="false"/>
         <activity
-            android:name=".LoginUser"
+            android:name=".LoginDiner"
             android:windowSoftInputMode="adjustNothing"
             android:exported="true">
             <intent-filter>

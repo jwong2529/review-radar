@@ -1,12 +1,10 @@
 package com.example.reviewradar;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,11 +12,8 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
-
-public class PostAReview extends AppCompatActivity {
+public class PostARestaurantReview extends AppCompatActivity {
     MediaPlayer postSound;
     MediaPlayer trashSound;
     String restaurantName;
@@ -26,7 +21,7 @@ public class PostAReview extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_post_areview);
+        setContentView(R.layout.post_a_review_page);
         postSound = MediaPlayer.create(this,R.raw.postsound);
         trashSound = MediaPlayer.create(this, R.raw.trash);
 
@@ -47,7 +42,7 @@ public class PostAReview extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 trashSound.start();
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                Intent intent = new Intent(v.getContext(), ViewHomePage.class);
                 v.getContext().startActivity(intent);
             }
         });
@@ -70,7 +65,6 @@ public class PostAReview extends AppCompatActivity {
         //testing
         AccessData resData = new AccessData(restaurantNameText);
 
-//        if (RestaurantData.restaurantMap.containsKey(restaurantNameText)) {
         if (AccessData.restaurantMap.containsKey(restaurantNameText)) {
             if (checkDescription()) {
                 RatingBar ratingBar = findViewById(R.id.postReviewRatingBar);
@@ -81,33 +75,23 @@ public class PostAReview extends AppCompatActivity {
 
                 AccessData.retrieveUserObject(new AccessData.UserObjectCallback() {
                     @Override
-                    public void onDataLoaded(User user) {
+                    public void onDataLoaded(Diner diner) {
 //                        RestaurantReview review = new RestaurantReview(user, rating, reviewDescription);
 
-                        RestaurantReview review = new RestaurantReview(restaurantNameText, user.getUsername(), rating, reviewDescription);
+                        RestaurantReview review = new RestaurantReview(restaurantNameText, diner.getUsername(), rating, reviewDescription);
 
                         resData.addReviewToRestaurant(restaurantNameText, review);
 
-                        AccessData.addReviewToUser(user, review);
+                        AccessData.addReviewToUser(diner, review);
 
 
                         showToast("Review posted!");
 
-                        Intent intent = new Intent(PostAReview.this, ViewRestaurantPage.class);
+                        Intent intent = new Intent(PostARestaurantReview.this, ViewRestaurantPage.class);
                         intent.putExtra("restaurantName", restaurantName);
                         startActivity(intent);
                     }
                 });
-//                RestaurantReview review = new RestaurantReview(null, rating, reviewDescription);
-//
-//                resData.addReviewToRestaurant(restaurantNameText, review);
-//
-//
-//                showToast("Review posted!");
-//
-//                Intent intent = new Intent(PostAReview.this, ViewRestaurantPage.class);
-//                intent.putExtra("restaurantName", restaurantName);
-//                startActivity(intent);
             } else {
                 showToast("Review must be between 0 and 250 characters.");
             }
@@ -128,6 +112,6 @@ public class PostAReview extends AppCompatActivity {
 
 
     private void showToast(String message) {
-        Toast.makeText(PostAReview.this, message, Toast.LENGTH_SHORT).show();
+        Toast.makeText(PostARestaurantReview.this, message, Toast.LENGTH_SHORT).show();
     }
 }

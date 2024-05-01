@@ -33,8 +33,7 @@
             android:layout_height="242dp"
             android:paddingTop="8dp"
             android:paddingBottom="8dp"
-            android:scaleType="centerCrop"
-            app:srcCompat="@drawable/mcdonalds" />
+            android:scaleType="centerCrop"/>
 
         <View
             android:id="@+id/view5"
@@ -58,6 +57,5 @@
             android:rating="0"
             android:stepSize="0.5" />
 
-        <!-- Add ImageView for image, and other views as needed -->
     </LinearLayout>
 </androidx.cardview.widget.CardView>

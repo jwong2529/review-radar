@@ -27,7 +27,7 @@ import android.view.MenuItem;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class ViewHomePage extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private RestaurantAdapter adapter;
@@ -43,13 +43,13 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             if (item.getItemId() == R.id.home) {
-                startActivity(new Intent(MainActivity.this, MainActivity.class));
+                startActivity(new Intent(ViewHomePage.this, ViewHomePage.class));
                 return true;
             } else if (item.getItemId() == R.id.profile) {
-                startActivity(new Intent(MainActivity.this, Profile.class));
+                startActivity(new Intent(ViewHomePage.this, ViewDinerProfilePage.class));
                 return true;
             } else if (item.getItemId() == R.id.post_nav) {
-                startActivity(new Intent(MainActivity.this, PostAReview.class));
+                startActivity(new Intent(ViewHomePage.this, PostARestaurantReview.class));
                 return true;
             }
             return false;
@@ -89,9 +89,9 @@ public class MainActivity extends AppCompatActivity {
                 }
 
                 recyclerView = findViewById(R.id.favRecycler);
-                recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                recyclerView.setLayoutManager(new LinearLayoutManager(ViewHomePage.this));
                 recyclerView.setHasFixedSize(true); //new
-                adapter = new RestaurantAdapter(restaurantList, MainActivity.this);
+                adapter = new RestaurantAdapter(restaurantList, ViewHomePage.this);
                 recyclerView.setAdapter(adapter);
 
                 //new

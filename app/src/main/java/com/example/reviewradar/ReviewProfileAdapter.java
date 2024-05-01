@@ -1,7 +1,6 @@
 package com.example.reviewradar;
 
 import android.content.Intent;
-import android.media.Rating;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +23,7 @@ public class ReviewProfileAdapter extends RecyclerView.Adapter<ReviewProfileAdap
     @NonNull
     @Override
     public ReviewProfileAdapter.ReviewProfileHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.profile_review_post, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.diner_profile_review_post, parent, false);
         return new ReviewProfileHolder(view);
     }
 

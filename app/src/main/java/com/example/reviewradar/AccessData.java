@@ -4,7 +4,6 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.google.firebase.Firebase;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -15,7 +14,6 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Objects;
 
 public class AccessData {
 
@@ -158,13 +156,13 @@ public class AccessData {
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User user;
+                Diner diner;
                 if (snapshot.exists()) {
-                    user = snapshot.getValue(User.class);
+                    diner = snapshot.getValue(Diner.class);
                 } else {
-                    user = null;
+                    diner = null;
                 }
-                callback.onDataLoaded(user);
+                callback.onDataLoaded(diner);
             }
 
             @Override
@@ -175,29 +173,29 @@ public class AccessData {
     }
 
     public interface UserObjectCallback {
-        void onDataLoaded(User user);
+        void onDataLoaded(Diner diner);
     }
 
-    public static void addReviewToUser(User user, RestaurantReview review) {
+    public static void addReviewToUser(Diner diner, RestaurantReview review) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference userRef = database.getReference("userInfo").child(user.getUserKey());
-        user.addUserReview(review);
-        userRef.setValue(user);
+        DatabaseReference userRef = database.getReference("userInfo").child(diner.getUserKey());
+        diner.addUserReview(review);
+        userRef.setValue(diner);
     }
 
-    public static void addFavoriteForUser(User user, String restaurantName) {
+    public static void addFavoriteForUser(Diner diner, String restaurantName) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference userRef = database.getReference("userInfo").child(user.getUserKey());
+        DatabaseReference userRef = database.getReference("userInfo").child(diner.getUserKey());
 
-        user.addUserFavorite(restaurantName);
-        userRef.setValue(user);
+        diner.addUserFavorite(restaurantName);
+        userRef.setValue(diner);
     }
 
-    public static void removeFavoriteForUser(User user, String restaurantName) {
+    public static void removeFavoriteForUser(Diner diner, String restaurantName) {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference userRef = database.getReference("userInfo").child(user.getUserKey());
+        DatabaseReference userRef = database.getReference("userInfo").child(diner.getUserKey());
 
-        user.removeUserFavorite(restaurantName);
-        userRef.setValue(user);
+        diner.removeUserFavorite(restaurantName);
+        userRef.setValue(diner);
     }
 }

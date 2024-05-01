@@ -18,7 +18,7 @@ import java.util.Collections;
 import java.util.List;
 
 
-public class Profile extends AppCompatActivity {
+public class ViewDinerProfilePage extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ReviewProfileAdapter adapter;
@@ -28,7 +28,7 @@ public class Profile extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_profile);
+        setContentView(R.layout.diner_profile_page);
 
         favoritePageSound = MediaPlayer.create(this, R.raw.favoritepage);
 
@@ -37,16 +37,16 @@ public class Profile extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         AccessData.retrieveUserObject(new AccessData.UserObjectCallback() {
             @Override
-            public void onDataLoaded(User user) {
+            public void onDataLoaded(Diner diner) {
 //                currentUser = user;
-                List<RestaurantReview> userReviews = user.getUserReviews();
+                List<RestaurantReview> userReviews = diner.getUserReviews();
                 Collections.reverse(userReviews);
                 adapter = new ReviewProfileAdapter(userReviews);
                 recyclerView.setAdapter(adapter);
 
                 //setting profile name
                 TextView profileTitle = findViewById(R.id.profileUserName);
-                profileTitle.setText(user.getUsername());
+                profileTitle.setText(diner.getUsername());
             }
         });
 
@@ -66,7 +66,7 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) {
                 FirebaseAuth mAuth = FirebaseAuth.getInstance();
                 mAuth.signOut();
-                Intent intent = new Intent(v.getContext(), LoginUser.class);
+                Intent intent = new Intent(v.getContext(), LoginDiner.class);
                 v.getContext().startActivity(intent);
             }
         });
@@ -75,7 +75,7 @@ public class Profile extends AppCompatActivity {
         backButtonFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                Intent intent = new Intent(v.getContext(), ViewHomePage.class);
                 v.getContext().startActivity(intent);
             }
         });

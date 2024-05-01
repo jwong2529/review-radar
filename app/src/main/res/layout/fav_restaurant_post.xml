@@ -24,8 +24,7 @@
                 android:layout_width="50dp"
                 android:layout_height="60dp"
                 android:layout_weight="1"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/mcdonalds" />
+                android:scaleType="centerCrop"/>
 
             <TextView
                 android:id="@+id/favRestaurantName"
@@ -49,7 +48,5 @@
             android:progressTint="#FFCC01"
             android:rating="4" />
 
-
-        <!-- Add ImageView for image, and other views as needed -->
     </LinearLayout>
 </androidx.cardview.widget.CardView>

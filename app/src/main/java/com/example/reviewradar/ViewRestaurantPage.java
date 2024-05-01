@@ -1,6 +1,5 @@
 package com.example.reviewradar;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,7 +9,6 @@ import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -62,7 +60,7 @@ public class ViewRestaurantPage extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), MainActivity.class);
+                Intent intent = new Intent(v.getContext(), ViewHomePage.class);
                 v.getContext().startActivity(intent);
             }
         });
@@ -71,7 +69,7 @@ public class ViewRestaurantPage extends AppCompatActivity {
         postReviewButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(v.getContext(), PostAReview.class);
+                Intent intent = new Intent(v.getContext(), PostARestaurantReview.class);
                 intent.putExtra("restaurantName", restaurantName);
                 v.getContext().startActivity(intent);
             }
@@ -82,8 +80,8 @@ public class ViewRestaurantPage extends AppCompatActivity {
         //Display initial favorite status
         AccessData.retrieveUserObject(new AccessData.UserObjectCallback() {
             @Override
-            public void onDataLoaded(User user) {
-                if (user.getUserFavorites().contains(restaurantName)) {
+            public void onDataLoaded(Diner diner) {
+                if (diner.getUserFavorites().contains(restaurantName)) {
                     favoriteButton.setImageTintList(yellowTint);
                 }
                 else {
@@ -98,14 +96,14 @@ public class ViewRestaurantPage extends AppCompatActivity {
                 mediaPlayer.start();
                 AccessData.retrieveUserObject(new AccessData.UserObjectCallback() {
                     @Override
-                    public void onDataLoaded(User user) {
-                        if (user.getUserFavorites().contains(restaurantName)) {
+                    public void onDataLoaded(Diner diner) {
+                        if (diner.getUserFavorites().contains(restaurantName)) {
                             favoriteButton.setImageTintList(redTint);
-                            AccessData.removeFavoriteForUser(user, restaurantName);
+                            AccessData.removeFavoriteForUser(diner, restaurantName);
                             showToast("Removed from Favorites");
                         } else {
                             favoriteButton.setImageTintList(yellowTint);
-                            AccessData.addFavoriteForUser(user, restaurantName);
+                            AccessData.addFavoriteForUser(diner, restaurantName);
                             showToast("Added to Favorites");
                         }
                     }
