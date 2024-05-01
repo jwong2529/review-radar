@@ -56,7 +56,7 @@ public class PostAReview extends AppCompatActivity {
 
     }
 
-    private void handleReview() {
+    void handleReview() {
         EditText restaurantNameET = findViewById(R.id.postReviewResTitle);
         String restaurantNameText = restaurantNameET.getText().toString();
 
@@ -110,7 +110,7 @@ public class PostAReview extends AppCompatActivity {
     }
 
 
-    private boolean checkDescription() {
+    boolean checkDescription() {
         TextView reviewTV = findViewById(R.id.postReviewDescription);
         String reviewText = reviewTV.getText().toString();
         if (reviewText.length() > 0 && reviewText.length() <= 250) {
@@ -122,5 +122,10 @@ public class PostAReview extends AppCompatActivity {
 
     private void showToast(String message) {
         Toast.makeText(PostAReview.this, message, Toast.LENGTH_SHORT).show();
+    }
+
+    boolean validateReview(String restaurantName, String reviewText) {
+        return AccessData.restaurantMap.containsKey(restaurantName) &&
+                reviewText.length() > 0 && reviewText.length() <= 250;
     }
 }

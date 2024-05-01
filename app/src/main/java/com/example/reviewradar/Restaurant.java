@@ -25,6 +25,7 @@ public class Restaurant {
         this.imageUrls = new ArrayList<>();
     }
 
+
     public String getName() {
         return name;
     }
