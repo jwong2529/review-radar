@@ -10,6 +10,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 
 
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -52,7 +54,6 @@ public class CreateDinerAccount extends AppCompatActivity {
          createAccountButton.setOnClickListener(new View.OnClickListener() {
              @Override
              public void onClick(View v) {
-                 mediaPlayer.start();
                  EditText createAccountUsername = findViewById(R.id.createAccountUsername);
                  EditText createAccountEmail = findViewById(R.id.createAccountEmail);
                  EditText createAccountPassword = findViewById(R.id.createAccountPassword);
@@ -64,6 +65,7 @@ public class CreateDinerAccount extends AppCompatActivity {
                  if (!usernameText.isEmpty()) {
                      if (!emailText.isEmpty()) {
                          if (passwordText.length() >= 6) {
+                             mediaPlayer.start();
                              createAccount(usernameText, emailText, passwordText);
                          } else {
                              Toast.makeText(CreateDinerAccount.this, "Password must be at least 6 characters long.", Toast.LENGTH_SHORT).show();
@@ -76,6 +78,19 @@ public class CreateDinerAccount extends AppCompatActivity {
                  }
              }
          });
+
+        FloatingActionButton passwordButton = findViewById(R.id.showPasswordButton);
+        passwordButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText createAccountPassword = findViewById(R.id.createAccountPassword);
+                if (createAccountPassword.getTransformationMethod() instanceof PasswordTransformationMethod) {
+                    createAccountPassword.setTransformationMethod(null);
+                } else {
+                    createAccountPassword.setTransformationMethod(new PasswordTransformationMethod());
+                }
+            }
+        });
 
          Button loginButton = findViewById(R.id.createAccountPageLoginButton);
          loginButton.setOnClickListener(new View.OnClickListener() {

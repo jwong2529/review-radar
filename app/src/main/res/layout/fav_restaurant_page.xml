@@ -33,7 +33,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/restaurantPageImage"
                 app:layout_constraintVertical_bias="0.142"
-                app:maxImageSize="25dp"
+                app:maxImageSize="20dp"
                 app:srcCompat="@android:drawable/ic_menu_revert"
                 app:tint="@color/black" />
 

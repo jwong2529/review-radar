@@ -124,6 +124,7 @@ public class ViewRestaurantPage extends AppCompatActivity {
                 TextView cuisineTypeTV = findViewById(R.id.restaurantPageCuisineType);
                 TextView addressTV = findViewById(R.id.restaurantPageAddress);
                 ImageView restaurantImageIV = findViewById(R.id.restaurantPageImage);
+                RatingBar ratingRB = findViewById(R.id.restaurantPageRating);
 
                 String cuisineType = restaurant.getCuisineType();
                 String address = restaurant.getAddress();
@@ -134,6 +135,7 @@ public class ViewRestaurantPage extends AppCompatActivity {
                 addressTV.setText(address);
 
                 setAverageRating(restaurant);
+
 
                 //display image
                 int resourceId = getResources().getIdentifier(imagePath, "drawable", getPackageName());

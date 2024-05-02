@@ -86,6 +86,7 @@ public class Restaurant {
             averageRating += rating;
         }
 
+        averageRating = averageRating / reviewsSize;
         //round the average rating to nearest 0.5 increment
         float roundedAverageRating = (float)Math.round(averageRating * 2)/2.0f;
         return roundedAverageRating;

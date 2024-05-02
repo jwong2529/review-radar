@@ -4,6 +4,7 @@ package com.example.reviewradar;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -14,6 +15,7 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
@@ -48,6 +50,19 @@ public class LoginDiner extends AppCompatActivity {
                 String passwordText = loginPagePassword.getText().toString();
 
                 signIn(emailText, passwordText);
+            }
+        });
+
+        FloatingActionButton passwordFAB = findViewById(R.id.passwordButton);
+        passwordFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                EditText loginPagePassword = findViewById(R.id.loginPagePassword);
+                if (loginPagePassword.getTransformationMethod() instanceof PasswordTransformationMethod) {
+                    loginPagePassword.setTransformationMethod(null);
+                } else {
+                    loginPagePassword.setTransformationMethod(new PasswordTransformationMethod());
+                }
             }
         });
 
